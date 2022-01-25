@@ -2,9 +2,9 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Driver {
-  private ITwitterAPI api;
+  private IDatabaseAPI api;
 
-  public Driver(ITwitterAPI api) {
+  public Driver(IDatabaseAPI api) {
     this.api = api;
   }
 

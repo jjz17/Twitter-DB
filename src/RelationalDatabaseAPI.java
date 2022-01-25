@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 
-class RelationalTwitterAPI implements ITwitterAPI {
+class RelationalDatabaseAPI implements IDatabaseAPI {
 
   private Connection connect = null;
   private Statement statement = null;

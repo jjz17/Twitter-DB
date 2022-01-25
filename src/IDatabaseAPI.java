@@ -1,6 +1,6 @@
 import java.util.List;
 
-public interface ITwitterAPI {
+public interface IDatabaseAPI {
 
   void postTweet(Tweet t) throws Exception;
   List<Tweet> getTimeline(Integer user_id);
