@@ -8,10 +8,14 @@ public class Driver {
     this.api = api;
   }
 
+  public Driver() {}
+
   // Driver program to read tweets from tweets.csv and add them to MySQL Database
   public void readTweets() throws FileNotFoundException {
     //parsing a CSV file into Scanner class constructor
-    Scanner sc = new Scanner(new File("../hw1_data/tweets_sample"));
+    Scanner sc = new Scanner(new File("hw1_data/tweets_sample.csv"));
+//    Run line below when testing is done
+//    Scanner sc = new Scanner(new File("hw1_data/tweets.csv"));
     sc.useDelimiter(",");   //sets the delimiter pattern
     while (sc.hasNext())  //returns a boolean value
     {
@@ -26,7 +30,8 @@ public class Driver {
   }
 
   // Main method
-  public static void main(String[] args) {
-
+  public static void main(String[] args) throws FileNotFoundException {
+    Driver testDriver = new Driver();
+    testDriver.readTweets();
   }
 }
