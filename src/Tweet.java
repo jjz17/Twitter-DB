@@ -1,4 +1,5 @@
 public class Tweet {
+
   private int user_id;
   private String text;
 

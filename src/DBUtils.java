@@ -2,7 +2,6 @@ import java.sql.*;
 
 public class DBUtils {
 
-
   private String url;
   private String user;
   private String password;
