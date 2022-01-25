@@ -1,2 +1,2 @@
-# Twitter_RDB
+# Twitter-RDB
 DS 4300 HW1: Relational vs. NoSQL Twitter Case Study
