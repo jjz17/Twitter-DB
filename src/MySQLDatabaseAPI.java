@@ -51,33 +51,27 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
 
   @Override
   public List<Integer> getFollowers(Integer user_id) {
-//    String sql = "select user_id"+
-//            "from tweets t join follows f using (specialty_id) " +
-//            "join hospital h using (hospital_id) "+
-//            "where new_patients = 1 "+
-//            "and specialty like '"+specialty.toUpperCase()+"'";
-//
-//    List<Doctor> doctors = new ArrayList<Doctor>();
-//
-//
-//    try {
-//      // get connection and initialize statement
-//      Connection con = dbu.getConnection();
-//      Statement stmt = con.createStatement();
-//      ResultSet rs = stmt.executeQuery(sql);
-//      while (rs.next() != false)
-//        doctors.add(new Doctor(rs.getInt("doctor_id"), rs.getString("lastname"), rs.getString("firstname"),
-//                rs.getBoolean("new_patients"), rs.getString("specialty"), rs.getString("hospital")));
-//      rs.close();
-//      stmt.close();
-//    } catch (SQLException e) {
-//      System.err.println(e.getMessage());
-//      e.printStackTrace();
-//    }
-//
-//    return doctors;
+    String sql = "SELECT user_id"+
+            "FROM follows" +
+            "WHERE follows_id = " + user_id;
 
-    return null;
+    List<Integer> followers = new ArrayList<Integer>();
+
+    try {
+      // get connection and initialize statement
+      Connection con = this.dbUtils.getConnection();
+      Statement stmt = con.createStatement();
+      ResultSet rs = stmt.executeQuery(sql);
+      while (rs.next() != false)
+        followers.add(rs.getInt("follows_id"));
+      rs.close();
+      stmt.close();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+      e.printStackTrace();
+    }
+
+    return followers;
   }
 
   @Override
@@ -91,7 +85,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
 
     try {
       // get connection and initialize statement
-      Connection con = dbUtils.getConnection();
+      Connection con = this.dbUtils.getConnection();
       Statement stmt = con.createStatement();
       ResultSet rs = stmt.executeQuery(sql);
       while (rs.next() != false)
