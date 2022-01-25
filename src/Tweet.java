@@ -6,6 +6,6 @@ public class Tweet {
   }
 
   public String getText() {
-    return text;
+    return this.text;
   }
 }
