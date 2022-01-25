@@ -1,3 +1,4 @@
+import java.sql.JDBCType;
 import java.util.List;
 
 import java.sql.Connection;
@@ -15,9 +16,77 @@ class RelationalTwitterAPI implements ITwitterAPI {
   private PreparedStatement preparedStatement = null;
   private ResultSet resultSet = null;
 
-  @Override
-  public void postTweet(Tweet t) {
+  private void close() {
+    try {
+      if (resultSet != null) {
+        resultSet.close();
+      }
 
+      if (statement != null) {
+        statement.close();
+      }
+
+      if (connect != null) {
+        connect.close();
+      }
+    } catch (Exception e) {
+
+    }
+  }
+
+  @Override
+  public void postTweet(Tweet t) throws Exception {
+    try {
+      // This will load the MySQL driver, each DB has its own driver
+      Class.forName("com.mysql.jdbc.Driver");
+      // Setup the connection with the DB
+      this.connect =
+              DriverManager.getConnection(
+                      "jdbc:mysql://localhost/feedback?" + "user=sqluser&password=sqluserpw");
+
+//      // Statements allow to issue SQL queries to the database
+//      this.statement = this.connect.createStatement();
+//      // Result set get the result of the SQL query
+//      this.resultSet = this.statement.executeQuery("select * from twitter.tweets");
+//      writeResultSet(this.resultSet);
+
+
+//      insert into table1 (field1, field3)  values (5,10)
+
+//      insert into table1 values (5, DEFAULT, 10, DEFAULT)
+
+      // PreparedStatements can use variables and are more efficient
+      this.preparedStatement =
+              this.connect.prepareStatement(
+                      "INSERT INTO  twitter.tweets VALUES (NULL, ?, NULL, ?)");
+      // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
+      // Parameters start with 1
+      this.preparedStatement.setNull(1, JDBCType.NULL.getVendorTypeNumber());
+      this.preparedStatement.setInt(2, 1);
+      this.preparedStatement.setNull(3, JDBCType.NULL.getVendorTypeNumber());
+      this.preparedStatement.setString(4, "sample tweet");
+      this.preparedStatement.executeUpdate();
+
+//      preparedStatement =
+//              connect.prepareStatement(
+//                      "SELECT myuser, webpage, datum, summary, COMMENTS from feedback.comments");
+//      resultSet = preparedStatement.executeQuery();
+//      writeResultSet(resultSet);
+
+      // Remove again the insert comment
+//      preparedStatement =
+//              connect.prepareStatement("delete from feedback.comments where myuser= ? ; ");
+//      preparedStatement.setString(1, "Test");
+//      preparedStatement.executeUpdate();
+//
+//      resultSet = statement.executeQuery("select * from feedback.comments");
+//      writeMetaData(resultSet);
+
+    } catch (Exception e) {
+      throw e;
+    } finally {
+      close();
+    }
   }
 
   @Override

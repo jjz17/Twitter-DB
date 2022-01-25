@@ -2,7 +2,7 @@ import java.util.List;
 
 public interface ITwitterAPI {
 
-  void postTweet(Tweet t);
+  void postTweet(Tweet t) throws Exception;
   List<Tweet> getTimeline(Integer user_id);
 
   List<Integer> getFollowers(Integer user_id);  // who is following user_id
