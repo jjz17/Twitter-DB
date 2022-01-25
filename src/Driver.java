@@ -1,4 +1,9 @@
 public class Driver {
+  private ITwitterAPI api;
+
+  public Driver(ITwitterAPI api) {
+    this.api = api;
+  }
 
   // Driver program to read tweets from tweets.csv
   public void readTweets() {
