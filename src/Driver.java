@@ -1,15 +1,9 @@
 import java.io.*;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Driver {
   private static IDatabaseAPI api = new MySQLDatabaseAPI();
-
-//  public Driver(IDatabaseAPI api) {
-//    this.api = api;
-//  }
-//
-//  public Driver() {}
 
   // Driver program to read tweets from tweets.csv and add them to MySQL Database
   public void readTweets() {
@@ -46,11 +40,18 @@ public class Driver {
   }
 
   // Driver program to return a random user's home timeline
-  public void randomHomeTimeline() {}
+  public void randomHomeTimeline() {
+    // select a random user... NEEDS TO BE IMPROVED
+    int random_user_id = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+    List<Integer> followees = api.getFollowees(random_user_id);
+    // Select a random followee
+    int random_followee = followees.get((int) Math.random() * followees.size());
+
+  }
 
   // Main method
   public static void main(String[] args) {
     Driver driver = new Driver();
-    driver.readTweets();
+//    driver.readTweets();
   }
 }
