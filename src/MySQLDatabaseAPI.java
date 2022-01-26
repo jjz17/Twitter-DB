@@ -10,8 +10,8 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
   @Override
   public void postTweet(Tweet t) {
 //    String sql = "INSERT INTO tweets (tweet_id, user_id, tweet_ts, tweet_text) VALUES (NULL, ?, NULL, ?)";
-    String sql = "INSERT INTO tweets (tweet_id, user_id, tweet_ts, tweet_text) VALUES" +
-            "('NULL','"+t.getUserId()+"','NULL','"+t.getText()+"')";
+    String sql = "INSERT INTO tweets (user_id, tweet_text) VALUES" +
+            "("+t.getUserId()+","+t.getText()+")";
     dbUtils.insertOneRecord(sql);
   }
 
