@@ -1,5 +1,4 @@
 import java.util.List;
-import java.sql.SQLException;
 
 
 public interface IDatabaseAPI {
@@ -9,14 +8,14 @@ public interface IDatabaseAPI {
    * @param t
    * @return
    */
-  public void postTweet(Tweet t);
+  void postTweet(Tweet t);
 
   /**
    *
    * @param user_id
    * @return
    */
-  public List<Tweet> getTimeline(Integer user_id);
+  List<Tweet> getTimeline(Integer user_id);
 
   /**
    * Find followers of a given user
@@ -45,10 +44,10 @@ public interface IDatabaseAPI {
    * @param user
    * @param password
    */
-  public void authenticate(String url, String user, String password);
+  void authenticate(String url, String user, String password);
 
   /**
    * Close the connection when application finishes
    */
-  public void closeConnection();
+  void closeConnection();
 }
