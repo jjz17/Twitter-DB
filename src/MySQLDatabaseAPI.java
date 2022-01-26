@@ -102,7 +102,27 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
 
   @Override
   public List<Tweet> getTweets(Integer user_id) {
-    return null;
+    String sql = "SELECT tweet_text"+
+            "FROM tweets" +
+            "WHERE user_id = " + user_id;
+
+    List<Tweet> tweets = new ArrayList<Tweet>();
+
+    try {
+      // get connection and initialize statement
+      Connection con = this.dbUtils.getConnection();
+      Statement stmt = con.createStatement();
+      ResultSet rs = stmt.executeQuery(sql);
+      while (rs.next() != false)
+        tweets.add(new Tweet(user_id, rs.getString("tweet_text")));
+      rs.close();
+      stmt.close();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+      e.printStackTrace();
+    }
+
+    return tweets;
   }
 
   @Override
