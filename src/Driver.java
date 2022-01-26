@@ -42,13 +42,15 @@ public class Driver {
 
   // Driver program to return a random user's home timeline
   public void randomHomeTimeline() {
+    List<Integer> users = api.getUsers();
+
     // Running infinite loop, can maybe try using a timer library to run for 10 seconds for example
     while (true) {
     // select a random user... NEEDS TO BE IMPROVED
-    int random_user_id = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+    int random_user_id = users.get((int) (Math.random() * users.size()));
     List<Integer> followees = api.getFollowees(random_user_id);
     // Select a random followee
-    int random_followee = followees.get((int) Math.random() * followees.size());
+    int random_followee = followees.get((int) (Math.random() * followees.size()));
     }
   }
 
