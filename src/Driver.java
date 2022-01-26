@@ -31,6 +31,7 @@ public class Driver {
 
         Tweet tweet = new Tweet(user_id, tweet_text);
 
+        // Insert the tweet into the database
         api.postTweet(tweet);
       }
     } catch (IOException ex) {
@@ -41,12 +42,14 @@ public class Driver {
 
   // Driver program to return a random user's home timeline
   public void randomHomeTimeline() {
+    // Running infinite loop, can maybe try using a timer library to run for 10 seconds for example
+    while (true) {
     // select a random user... NEEDS TO BE IMPROVED
     int random_user_id = ThreadLocalRandom.current().nextInt(1, 100 + 1);
     List<Integer> followees = api.getFollowees(random_user_id);
     // Select a random followee
     int random_followee = followees.get((int) Math.random() * followees.size());
-
+    }
   }
 
   // Main method
