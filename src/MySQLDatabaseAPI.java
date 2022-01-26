@@ -55,7 +55,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
             "FROM follows" +
             "WHERE follows_id = " + user_id;
 
-    List<Integer> followers = new ArrayList<Integer>();
+    List<Integer> followers = new ArrayList<>();
 
     try {
       // get connection and initialize statement
@@ -81,7 +81,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
             "FROM follows" +
             "WHERE user_id = " + user_id;
 
-    List<Integer> followees = new ArrayList<Integer>();
+    List<Integer> followees = new ArrayList<>();
 
     try {
       // get connection and initialize statement
@@ -123,6 +123,30 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
     }
 
     return tweets;
+  }
+
+  @Override
+  public List<Integer> getUsers() {
+    String sql = "SELECT DISTINCT(user_id)"+
+            "FROM follows";
+
+    List<Integer> users = new ArrayList<>();
+
+    try {
+      // get connection and initialize statement
+      Connection con = this.dbUtils.getConnection();
+      Statement stmt = con.createStatement();
+      ResultSet rs = stmt.executeQuery(sql);
+      while (rs.next() != false)
+        users.add(rs.getInt("user_id"));
+      rs.close();
+      stmt.close();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+      e.printStackTrace();
+    }
+
+    return users;
   }
 
   @Override

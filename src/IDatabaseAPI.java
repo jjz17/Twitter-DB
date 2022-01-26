@@ -6,7 +6,6 @@ public interface IDatabaseAPI {
   /**
    * Post one tweet
    * @param t
-   * @return
    */
   void postTweet(Tweet t);
 
@@ -37,6 +36,12 @@ public interface IDatabaseAPI {
    * @return a list of tweets
    */
   List<Tweet> getTweets(Integer user_id);
+
+  /**
+   * Find all distinct users
+   * @return a list of user id's
+   */
+  List<Integer> getUsers();
 
   /**
    * Set connection settings
