@@ -48,9 +48,6 @@ public class Driver {
     while (true) {
       int random_user_id = users.get((int) (Math.random() * users.size()));
       api.getTimeline(random_user_id);
-//      List<Integer> followees = api.getFollowees(random_user_id);
-//      // Select a random followee
-//      int random_followee = followees.get((int) (Math.random() * followees.size()));
     }
   }
 

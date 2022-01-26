@@ -17,35 +17,10 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
 
   @Override
   public List<Tweet> getTimeline(Integer user_id) {
-    // select userid and text from tweets where the user id is one of the user ids of the given user's following list
-    // SELECT user_id, tweet_text FROM tweets t
+    List<Integer> followees = this.getFollowees(user_id);
+    // Select a random followee
+    int random_followee = followees.get((int) (Math.random() * followees.size()));
 
-
-//    String sql = "select doctor_id, lastname, firstname, new_patients, specialty, h.name hospital "+
-//            "from doctor d join specialty using (specialty_id) " +
-//            "join hospital h using (hospital_id) "+
-//            "where new_patients = 1 "+
-//            "and specialty like '"+specialty.toUpperCase()+"'";
-//
-//    List<Doctor> doctors = new ArrayList<Doctor>();
-//
-//
-//    try {
-//      // get connection and initialize statement
-//      Connection con = dbu.getConnection();
-//      Statement stmt = con.createStatement();
-//      ResultSet rs = stmt.executeQuery(sql);
-//      while (rs.next() != false)
-//        doctors.add(new Doctor(rs.getInt("doctor_id"), rs.getString("lastname"), rs.getString("firstname"),
-//                rs.getBoolean("new_patients"), rs.getString("specialty"), rs.getString("hospital")));
-//      rs.close();
-//      stmt.close();
-//    } catch (SQLException e) {
-//      System.err.println(e.getMessage());
-//      e.printStackTrace();
-//    }
-//
-//    return doctors;
     return null;
   }
 

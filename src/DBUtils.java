@@ -67,6 +67,34 @@ public class DBUtils {
     return key;
   }
 
+//  public void getNRecords(String selectSQL) {
+//    int key = -1;
+//
+//    try {
+//      Connection con = getConnection();
+//      Statement stmt = con.createStatement();
+////      String sqlGet = "SELECT "+keyColumn+" FROM "+table+" WHERE "+valueColumn+" = '"+term.toUpperCase()+"'";
+//      ResultSet rs = stmt.executeQuery(selectSQL);
+//      if (rs.next())
+//        key = rs.getInt(1);
+//      else {
+//        String sqlInsert = "INSERT INTO "+table+" ("+valueColumn+") VALUES ('"+term.toUpperCase()+"')";
+//        stmt.executeUpdate(sqlInsert, Statement.RETURN_GENERATED_KEYS);
+//        rs = stmt.getGeneratedKeys();
+//        if (rs.next()) key = rs.getInt(1);
+//      }
+//
+//      rs.close();
+//      stmt.close();
+//
+//    } catch (SQLException e) {
+//      System.err.println(e.getMessage());
+//      e.printStackTrace();
+//    }
+//
+////    return key;
+//  }
+
 
   /**
    * For a table of terms consisting of an id and string value pair, get the id of the term
