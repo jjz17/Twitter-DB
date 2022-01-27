@@ -8,3 +8,7 @@ https://www.javatpoint.com/how-to-read-csv-file-in-java
 
 ### Inserting Records into MySQL 
 https://www.vogella.com/tutorials/MySQLJava/article.html
+
+#### Performance test for posting tweets
+Start time: 2022/01/27 16:52:05
+End time: 2022/01/27 16:59:10

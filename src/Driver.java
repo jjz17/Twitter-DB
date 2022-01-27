@@ -14,8 +14,8 @@ public class Driver {
   public void readTweets() {
 //    api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
 
-    String csvFilePath = "hw1_data/tweets_sample.csv";
-//    String csvFilePath = "hw1_data/tweet.csv";
+//    String csvFilePath = "hw1_data/tweets_sample.csv";
+    String csvFilePath = "hw1_data/tweet.csv";
 
     try {
       BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
