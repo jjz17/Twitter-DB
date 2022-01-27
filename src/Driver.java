@@ -14,8 +14,8 @@ public class Driver {
   public void readTweets() {
 //    api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
 
-//    String csvFilePath = "hw1_data/tweets_sample.csv";
     String csvFilePath = "hw1_data/tweets_sample.csv";
+//    String csvFilePath = "hw1_data/tweet.csv";
 
     try {
       BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
@@ -28,8 +28,8 @@ public class Driver {
         String[] data = lineText.split(",");
         int user_id = Integer.parseInt(data[0]);
         String tweet_text = data[1];
-        System.out.println(user_id);
-        System.out.println(tweet_text);
+//        System.out.println(user_id);
+//        System.out.println(tweet_text);
 
         Tweet tweet = new Tweet(user_id, tweet_text);
 
@@ -73,7 +73,7 @@ public class Driver {
 //    System.out.println(url + password + user);
 
     api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
-//    driver.readTweets();
+    driver.readTweets();
 //    List<Integer> followees = api.getFollowees(1);
 //    for (Integer i : followees) {
 //      System.out.println(i);

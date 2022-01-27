@@ -15,9 +15,9 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
         "INSERT INTO tweets (user_id, tweet_text) VALUES"
             + "("
             + t.getUserId()
-            + ","
+            + ", \""
             + t.getText()
-            + ")";
+            + "\")";
     dbUtils.insertOneRecord(sql);
   }
 
