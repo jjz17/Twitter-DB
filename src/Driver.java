@@ -61,8 +61,9 @@ public class Driver {
 
     api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
 //    driver.readTweets();
-    List<Integer> followees = api.getFollowees(1);
-    for (Integer i : followees) {
+//    List<Integer> followees = api.getFollowees(1);
+    List<Integer> followers = api.getFollowers(1);
+    for (Integer i : followers) {
       System.out.println(i);
     }
     api.closeConnection();

@@ -50,7 +50,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
 
   @Override
   public List<Integer> getFollowers(Integer user_id) {
-    String sql = "SELECT user_id" + "FROM follows" + "WHERE follows_id = " + user_id;
+    String sql = "SELECT user_id " + "FROM follows " + "WHERE follows_id = " + user_id;
 
     List<Integer> followers = new ArrayList<>();
 
@@ -59,7 +59,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
       Connection con = this.dbUtils.getConnection();
       Statement stmt = con.createStatement();
       ResultSet rs = stmt.executeQuery(sql);
-      while (rs.next() != false) followers.add(rs.getInt("follows_id"));
+      while (rs.next() != false) followers.add(rs.getInt("user_id"));
       rs.close();
       stmt.close();
     } catch (SQLException e) {
