@@ -3,16 +3,16 @@ import java.util.List;
 
 public class Driver {
   private static IDatabaseAPI api = new MySQLDatabaseAPI();
+  // Environmental variables
+  public static final String url = System.getenv("url");
+  public static final String user = System.getenv("root");
+  public static final String password = System.getenv("password");
 
   // Driver program to read tweets from tweets.csv and add them to MySQL Database
   public void readTweets() {
     String url = "jdbc:mysql://localhost:3306/twitter?serverTimezone=EST5EDT";
     String user = "root";
     String password = "jiajia2002";
-
-    String url2 = "jdbc:mysql://localhost:3306/twitter?serverTimezone=EST5EDT";
-    String user2 = "root";
-    String password2 = "jiajia2002";
 
     api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
 
@@ -70,18 +70,28 @@ public class Driver {
   public static void main(String[] args) {
     Driver driver = new Driver();
 
-    String url = "jdbc:mysql://localhost:3306/twitter?serverTimezone=EST5EDT";
-    String user = "root";
-    String password = "jiajia2002";
+//    String url = "jdbc:mysql://localhost:3306/twitter?serverTimezone=EST5EDT";
+//    String user = "root";
+//    String password = "jiajia2002";
+
+//    String db_url = url;
+//    String db_user = user;
+//    String db_password = password;
 
     api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
 //    driver.readTweets();
-//    List<Integer> followees = api.getFollowees(1);
-//    List<Integer> followers = api.getFollowers(1);
-    List<Tweet> tweets = api.getTimeline(1);
-    for (Tweet i : tweets) {
+    List<Integer> followees = api.getFollowees(1);
+    for (Integer i : followees) {
       System.out.println(i);
     }
+//    List<Integer> followers = api.getFollowers(1);
+//    for (Integer i : followers) {
+//      System.out.println(i);
+//    }
+//    List<Tweet> tweets = api.getTimeline(1);
+//    for (Tweet t : tweets) {
+//      System.out.println(t);
+//    }
     api.closeConnection();
   }
 }
