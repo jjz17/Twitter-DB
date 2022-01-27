@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Driver {
@@ -10,8 +12,9 @@ public class Driver {
 
   // Driver program to read tweets from tweets.csv and add them to MySQL Database
   public void readTweets() {
-    api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
+//    api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
 
+//    String csvFilePath = "hw1_data/tweets_sample.csv";
     String csvFilePath = "hw1_data/tweets_sample.csv";
 
     try {
@@ -23,7 +26,7 @@ public class Driver {
 
       while ((lineText = lineReader.readLine()) != null) {
         String[] data = lineText.split(",");
-        int user_id = Integer.valueOf(data[0]);
+        int user_id = Integer.parseInt(data[0]);
         String tweet_text = data[1];
         System.out.println(user_id);
         System.out.println(tweet_text);
@@ -36,7 +39,7 @@ public class Driver {
     } catch (IOException ex) {
       System.err.println(ex);
     }
-    api.closeConnection();
+//    api.closeConnection();
   }
 
   // Driver program to return a random user's home timeline
@@ -63,6 +66,10 @@ public class Driver {
   public static void main(String[] args) {
     Driver driver = new Driver();
 
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+    LocalDateTime start = LocalDateTime.now();
+    System.out.println("Start time: " + dtf.format(start));
+
 //    System.out.println(url + password + user);
 
     api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
@@ -75,10 +82,12 @@ public class Driver {
 //    for (Integer i : followers) {
 //      System.out.println(i);
 //    }
-    List<Tweet> tweets = api.getTimeline(1);
-    for (Tweet t : tweets) {
-      System.out.println(t);
-    }
+//    List<Tweet> tweets = api.getTimeline(1);
+//    for (Tweet t : tweets) {
+//      System.out.println(t);
+//    }
     api.closeConnection();
+    LocalDateTime end = LocalDateTime.now();
+    System.out.println("End time: " + dtf.format(end));
   }
 }
