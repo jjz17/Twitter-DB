@@ -41,13 +41,25 @@ public class Driver {
 
   // Driver program to return a random user's home timeline
   public void randomHomeTimeline() {
+    String url = "jdbc:mysql://localhost:3306/twitter?serverTimezone=EST5EDT";
+    String user = "root";
+    String password = "jiajia2002";
+
+    api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
+
+
     List<Integer> users = api.getUsers();
 
     // Running infinite loop, can maybe try using a timer library to run for 10 seconds for example
     while (true) {
       int random_user_id = users.get((int) (Math.random() * users.size()));
-      api.getTimeline(random_user_id);
+      List<Tweet> tweets = api.getTimeline(random_user_id);
+      for (Tweet t : tweets) {
+        System.out.println(t);
+      }
     }
+
+//    api.closeConnection();
   }
 
   // Main method
