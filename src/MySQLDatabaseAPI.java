@@ -30,7 +30,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
     List<Tweet> tweets = new ArrayList<>();
 
     String sql =
-        "SELECT tweet_text" + "FROM tweets" + "WHERE user_id = " + random_followee + "LIMIT 10";
+        "SELECT tweet_text " + "FROM tweets " + "WHERE user_id = " + random_followee + " LIMIT 10";
 
     try {
       // get connection and initialize statement
