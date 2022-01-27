@@ -54,6 +54,17 @@ public class Driver {
   // Main method
   public static void main(String[] args) {
     Driver driver = new Driver();
+
+    String url = "jdbc:mysql://localhost:3306/twitter?serverTimezone=EST5EDT";
+    String user = "root";
+    String password = "jiajia2002";
+
+    api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
 //    driver.readTweets();
+    List<Integer> followees = api.getFollowees(1);
+    for (Integer i : followees) {
+      System.out.println(i);
+    }
+    api.closeConnection();
   }
 }

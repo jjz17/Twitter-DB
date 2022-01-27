@@ -73,7 +73,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
   @Override
   public List<Integer> getFollowees(Integer user_id) {
     // select follows_id from follows where user_id = user_id
-    String sql = "SELECT follows_id" + "FROM follows" + "WHERE user_id = " + user_id;
+    String sql = "SELECT follows_id " + "FROM follows " + "WHERE user_id = " + user_id;
 
     List<Integer> followees = new ArrayList<>();
 
