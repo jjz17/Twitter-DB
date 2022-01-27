@@ -27,25 +27,25 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
     // Select a random followee
     int random_followee = followees.get((int) (Math.random() * followees.size()));
 
-    List<Tweet> tweets = new ArrayList<>();
+//    List<Tweet> tweets = new ArrayList<>();
+//
+//    String sql =
+//        "SELECT tweet_text " + "FROM tweets " + "WHERE user_id = " + random_followee + " LIMIT 10";
+//
+//    try {
+//      // get connection and initialize statement
+//      Connection con = this.dbUtils.getConnection();
+//      Statement stmt = con.createStatement();
+//      ResultSet rs = stmt.executeQuery(sql);
+//      while (rs.next() != false) tweets.add(new Tweet(random_followee, rs.getString("tweet_text")));
+//      rs.close();
+//      stmt.close();
+//    } catch (SQLException e) {
+//      System.err.println(e.getMessage());
+//      e.printStackTrace();
+//    }
 
-    String sql =
-        "SELECT tweet_text " + "FROM tweets " + "WHERE user_id = " + random_followee + " LIMIT 10";
-
-    try {
-      // get connection and initialize statement
-      Connection con = this.dbUtils.getConnection();
-      Statement stmt = con.createStatement();
-      ResultSet rs = stmt.executeQuery(sql);
-      while (rs.next() != false) tweets.add(new Tweet(random_followee, rs.getString("tweet_text")));
-      rs.close();
-      stmt.close();
-    } catch (SQLException e) {
-      System.err.println(e.getMessage());
-      e.printStackTrace();
-    }
-
-    return tweets;
+    return this.getTweets(random_followee);
   }
 
   @Override
@@ -95,9 +95,10 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
 
   @Override
   public List<Tweet> getTweets(Integer user_id) {
-    String sql = "SELECT tweet_text " + "FROM tweets " + "WHERE user_id = " + user_id;
 
-    List<Tweet> tweets = new ArrayList<Tweet>();
+    String sql = "SELECT tweet_text " + "FROM tweets " + "WHERE user_id = " + user_id + " LIMIT 10";
+
+    List<Tweet> tweets = new ArrayList<>();
 
     try {
       // get connection and initialize statement
