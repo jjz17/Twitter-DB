@@ -10,10 +10,6 @@ public class Driver {
 
   // Driver program to read tweets from tweets.csv and add them to MySQL Database
   public void readTweets() {
-    String url = "jdbc:mysql://localhost:3306/twitter?serverTimezone=EST5EDT";
-    String user = "root";
-    String password = "jiajia2002";
-
     api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
 
     String csvFilePath = "hw1_data/tweets_sample.csv";
@@ -45,9 +41,6 @@ public class Driver {
 
   // Driver program to return a random user's home timeline
   public void randomHomeTimeline() {
-    String url = "jdbc:mysql://localhost:3306/twitter?serverTimezone=EST5EDT";
-    String user = "root";
-    String password = "jiajia2002";
 
     api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
 
@@ -71,14 +64,6 @@ public class Driver {
     Driver driver = new Driver();
 
 //    System.out.println(url + password + user);
-
-//    String url = "jdbc:mysql://localhost:3306/twitter?serverTimezone=EST5EDT";
-//    String user = "root";
-//    String password = "jiajia2002";
-
-//    String db_url = url;
-//    String db_user = user;
-//    String db_password = password;
 
     api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
 ////    driver.readTweets();
