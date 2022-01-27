@@ -8,6 +8,11 @@ public class Tweet {
     this.text = text;
   }
 
+  @Override
+  public String toString() {
+    return "User: " + this.user_id + ", tweet: " + this.text;
+  }
+
   public int getUserId() {
     return this.user_id;
   }
