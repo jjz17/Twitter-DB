@@ -95,7 +95,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
 
   @Override
   public List<Tweet> getTweets(Integer user_id) {
-    String sql = "SELECT tweet_text" + "FROM tweets" + "WHERE user_id = " + user_id;
+    String sql = "SELECT tweet_text " + "FROM tweets " + "WHERE user_id = " + user_id;
 
     List<Tweet> tweets = new ArrayList<Tweet>();
 
