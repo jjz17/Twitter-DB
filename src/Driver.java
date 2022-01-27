@@ -10,6 +10,10 @@ public class Driver {
     String user = "root";
     String password = "jiajia2002";
 
+    String url2 = "jdbc:mysql://localhost:3306/twitter?serverTimezone=EST5EDT";
+    String user2 = "root";
+    String password2 = "jiajia2002";
+
     api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
 
     String csvFilePath = "hw1_data/tweets_sample.csv";
