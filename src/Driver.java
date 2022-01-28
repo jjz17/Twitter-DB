@@ -43,23 +43,32 @@ public class Driver {
   }
 
   // Driver program to return a random user's home timeline
-  public void randomHomeTimeline() {
+  public int randomHomeTimeline() {
 
-    api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
+//    api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
 
 
     List<Integer> users = api.getUsers();
 
     // Running infinite loop, can maybe try using a timer library to run for 10 seconds for example
-    while (true) {
+//    while (true) {
+//      int random_user_id = users.get((int) (Math.random() * users.size()));
+//      List<Tweet> tweets = api.getTimeline(random_user_id);
+//      for (Tweet t : tweets) {
+//        System.out.println(t);
+//      }
+//    }
+    int count = 0;
+    long endTime = System.currentTimeMillis() + 1000;
+    while (System.currentTimeMillis() < endTime) {
       int random_user_id = users.get((int) (Math.random() * users.size()));
       List<Tweet> tweets = api.getTimeline(random_user_id);
-      for (Tweet t : tweets) {
-        System.out.println(t);
-      }
+      count++;
     }
 
 //    api.closeConnection();
+
+    return count;
   }
 
   // Main method
@@ -82,10 +91,10 @@ public class Driver {
 //    for (Integer i : followers) {
 //      System.out.println(i);
 //    }
-    List<Tweet> tweets = api.getTimeline(1);
-    for (Tweet t : tweets) {
-      System.out.println(t);
-    }
+//    List<Tweet> tweets = api.getTimeline(1);
+//    for (Tweet t : tweets) {
+//      System.out.println(t);
+//    }
     api.closeConnection();
     LocalDateTime end = LocalDateTime.now();
     System.out.println("End time: " + dtf.format(end));
