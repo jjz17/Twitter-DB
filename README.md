@@ -14,6 +14,6 @@ Start time: 2022/01/27 16:52:05
 End time: 2022/01/27 16:59:10
 Difference: 7:05
 
-Posts/second = 1,000,000 / 425 = 2,352.9412
+Posts/second = 1,000,000 / 425 = 2,352.9412 or 2353
 
 Timelines/second = 33
