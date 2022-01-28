@@ -12,7 +12,6 @@ public class Driver {
 
   // Driver program to read tweets from tweets.csv and add them to MySQL Database
   public void readTweets() {
-//    api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
 
 //    String csvFilePath = "hw1_data/tweets_sample.csv";
     String csvFilePath = "hw1_data/tweet.csv";
@@ -39,13 +38,10 @@ public class Driver {
     } catch (IOException ex) {
       System.err.println(ex);
     }
-//    api.closeConnection();
   }
 
   // Driver program to return a random user's home timeline
   public int randomHomeTimeline() {
-
-//    api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
 
 
     List<Integer> users = api.getUsers();
@@ -66,7 +62,6 @@ public class Driver {
       count++;
     }
 
-//    api.closeConnection();
 
     return count;
   }
