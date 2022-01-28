@@ -16,4 +16,4 @@ Difference: 7:05
 
 Posts/second = 1,000,000 / 425 = 2,352.9412
 
-Timelines/second = 30ish
+Timelines/second = 33
