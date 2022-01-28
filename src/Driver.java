@@ -73,7 +73,7 @@ public class Driver {
 //    System.out.println(url + password + user);
 
     api.authenticate(url, user, password); // DON'T HARDCODE PASSWORDS!
-    driver.readTweets();
+//    driver.readTweets();
 //    List<Integer> followees = api.getFollowees(1);
 //    for (Integer i : followees) {
 //      System.out.println(i);
@@ -82,10 +82,10 @@ public class Driver {
 //    for (Integer i : followers) {
 //      System.out.println(i);
 //    }
-//    List<Tweet> tweets = api.getTimeline(1);
-//    for (Tweet t : tweets) {
-//      System.out.println(t);
-//    }
+    List<Tweet> tweets = api.getTimeline(1);
+    for (Tweet t : tweets) {
+      System.out.println(t);
+    }
     api.closeConnection();
     LocalDateTime end = LocalDateTime.now();
     System.out.println("End time: " + dtf.format(end));
