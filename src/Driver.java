@@ -59,7 +59,7 @@ public class Driver {
 //      }
 //    }
     int count = 0;
-    long endTime = System.currentTimeMillis() + 1000;
+    long endTime = System.currentTimeMillis() + 10000;
     while (System.currentTimeMillis() < endTime) {
       int random_user_id = users.get((int) (Math.random() * users.size()));
       List<Tweet> tweets = api.getTimeline(random_user_id);
