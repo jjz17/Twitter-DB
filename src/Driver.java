@@ -95,6 +95,7 @@ public class Driver {
 //    for (Tweet t : tweets) {
 //      System.out.println(t);
 //    }
+    System.out.println(driver.randomHomeTimeline());
     api.closeConnection();
     LocalDateTime end = LocalDateTime.now();
     System.out.println("End time: " + dtf.format(end));
