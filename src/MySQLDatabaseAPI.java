@@ -3,14 +3,13 @@ import java.util.List;
 
 import java.sql.*;
 
+// MySQL implementation of IDatabaseAPI
 public class MySQLDatabaseAPI implements IDatabaseAPI {
 
   private DBUtils dbUtils;
 
   @Override
   public void postTweet(Tweet t) {
-    //    String sql = "INSERT INTO tweets (tweet_id, user_id, tweet_ts, tweet_text) VALUES (NULL,
-    // ?, NULL, ?)";
     String sql =
         "INSERT INTO tweets (user_id, tweet_text) VALUES"
             + "("
