@@ -1,6 +1,7 @@
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 // Driver class to run performance testing
@@ -75,5 +76,12 @@ public class Driver {
     api.closeConnection();
     // Log end time of performance test
     System.out.println("End time: " + dtf.format(end));
+
+    double minutes = start.until(end, ChronoUnit.MINUTES);
+    double seconds = start.until(end, ChronoUnit.SECONDS);
+
+    double total_runtime = minutes * 60 + seconds;
+
+    System.out.println("Average ");
   }
 }
