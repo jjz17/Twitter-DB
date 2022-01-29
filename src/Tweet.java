@@ -24,11 +24,19 @@ public class Tweet {
     return "User: " + this.user_id + ", tweet: " + this.text;
   }
 
+  public int getTweetId() {
+    return this.tweet_id;
+  }
+
   public int getUserId() {
     return this.user_id;
   }
 
   public String getText() {
     return this.text;
+  }
+
+  public Timestamp getTimestamp() {
+    return this.timestamp;
   }
 }
