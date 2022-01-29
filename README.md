@@ -18,3 +18,11 @@ Posts/second = 1,000,000 / 425 = 2,352.9412 or 2353
 
 Timelines/second = 24.4
 Maybe try adding index on user_id
+
+
+### Test Results
+Starting performance test...
+Start time: 2022/01/29 15:04:25
+End time: 2022/01/29 15:10:09
+Total runtime: 643.0 seconds
+Average posts/second: 1555.2099533437015
