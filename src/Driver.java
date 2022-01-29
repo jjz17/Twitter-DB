@@ -62,26 +62,28 @@ public class Driver {
   public static void main(String[] args) {
     Driver driver = new Driver();
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-    LocalDateTime start = LocalDateTime.now();
-
     api.authenticate(url, user, password);
 
-    // Log start time of performance test
-    System.out.println("Start time: " + dtf.format(start));
+    // Performance test starting dialogue
+    System.out.println("Starting performance test...");
+
+    LocalDateTime start = LocalDateTime.now();
 
     //    driver.readTweets();
     double retrieval_rate = driver.randomHomeTimeline(10000);
 
     LocalDateTime end = LocalDateTime.now();
     api.closeConnection();
-    // Log end time of performance test
+
+    // Log start and end time of performance test
+    System.out.println("Start time: " + dtf.format(start));
     System.out.println("End time: " + dtf.format(end));
 
     double minutes = start.until(end, ChronoUnit.MINUTES);
     double seconds = start.until(end, ChronoUnit.SECONDS);
-
     double total_runtime = minutes * 60 + seconds;
 
-    System.out.println("Average ");
+    // Output for profiling rate of tweet posting
+    System.out.println("Average posts/second: " + 1000000.0/total_runtime);
   }
 }
