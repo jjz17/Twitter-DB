@@ -83,7 +83,12 @@ public class Driver {
     double seconds = start.until(end, ChronoUnit.SECONDS);
     double total_runtime = minutes * 60 + seconds;
 
+    System.out.println("Total runtime: " + total_runtime + " seconds");
+
+    // Output for profiling rate of home timeline retrieval
+    System.out.println("Average home timelines retrieved/second: " + retrieval_rate);
+
     // Output for profiling rate of tweet posting
-    System.out.println("Average posts/second: " + 1000000.0/total_runtime);
+//    System.out.println("Average posts/second: " + 1000000.0/total_runtime);
   }
 }
