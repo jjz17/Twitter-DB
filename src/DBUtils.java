@@ -43,9 +43,8 @@ public class DBUtils {
 
 
   // Inserts a single record into the database
-  public int insertOneRecord(String insertSQL)
+  public void insertOneRecord(String insertSQL)
   {
-    // System.out.println("INSERT STATEMENT: "+insertSQL);
     int key = -1;
     try {
 
@@ -68,6 +67,5 @@ public class DBUtils {
       System.err.println(e.getMessage());
       e.printStackTrace();
     }
-    return key;
   }
 }
