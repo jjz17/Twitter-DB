@@ -41,7 +41,9 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
       Connection con = this.dbUtils.getConnection();
       Statement stmt = con.createStatement();
       ResultSet rs = stmt.executeQuery(sql);
-      while (rs.next()) followers.add(rs.getInt("user_id"));
+      while (rs.next()) {
+        followers.add(rs.getInt("user_id"));
+      }
       rs.close();
       stmt.close();
     } catch (SQLException e) {
@@ -64,7 +66,9 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
       Connection con = this.dbUtils.getConnection();
       Statement stmt = con.createStatement();
       ResultSet rs = stmt.executeQuery(sql);
-      while (rs.next()) followees.add(rs.getInt("follows_id"));
+      while (rs.next()) {
+        followees.add(rs.getInt("follows_id"));
+      }
       rs.close();
       stmt.close();
     } catch (SQLException e) {
@@ -78,7 +82,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
   @Override
   public List<Tweet> getTweets(Integer user_id) {
 
-    String sql = "SELECT tweet_text " + "FROM tweets " + "WHERE user_id = " + user_id + " LIMIT 10";
+    String sql = "SELECT * " + "FROM tweets " + "WHERE user_id = " + user_id + " LIMIT 10";
 
     List<Tweet> tweets = new ArrayList<>();
 
@@ -87,7 +91,14 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
       Connection con = this.dbUtils.getConnection();
       Statement stmt = con.createStatement();
       ResultSet rs = stmt.executeQuery(sql);
-      while (rs.next()) tweets.add(new Tweet(rs.getInt("tweet_id") ,user_id, rs.getTimestamp("tweet_ts"), rs.getString("tweet_text")));
+      while (rs.next()) {
+        tweets.add(
+            new Tweet(
+                rs.getInt("tweet_id"),
+                user_id,
+                rs.getTimestamp("tweet_ts"),
+                rs.getString("tweet_text")));
+      }
       rs.close();
       stmt.close();
     } catch (SQLException e) {
@@ -100,7 +111,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
 
   @Override
   public List<Integer> getUsers() {
-    String sql = "SELECT DISTINCT(user_id)" + "FROM follows";
+    String sql = "SELECT DISTINCT(user_id) " + "FROM follows";
 
     List<Integer> users = new ArrayList<>();
 
@@ -109,7 +120,9 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
       Connection con = this.dbUtils.getConnection();
       Statement stmt = con.createStatement();
       ResultSet rs = stmt.executeQuery(sql);
-      while (rs.next()) users.add(rs.getInt("user_id"));
+      while (rs.next()) {
+        users.add(rs.getInt("user_id"));
+      }
       rs.close();
       stmt.close();
     } catch (SQLException e) {

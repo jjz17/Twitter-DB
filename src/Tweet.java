@@ -21,7 +21,7 @@ public class Tweet {
 
   @Override
   public String toString() {
-    return "User: " + this.user_id + ", tweet: " + this.text;
+    return "User: " + this.user_id + ", tweet: " + this.text + ", time: " + this.timestamp;
   }
 
   public int getTweetId() {
