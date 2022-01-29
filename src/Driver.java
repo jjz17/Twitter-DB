@@ -27,8 +27,6 @@ public class Driver {
         String[] data = lineText.split(",");
         int user_id = Integer.parseInt(data[0]);
         String tweet_text = data[1];
-//        System.out.println(user_id);
-//        System.out.println(tweet_text);
 
         Tweet tweet = new Tweet(user_id, tweet_text);
 
@@ -43,17 +41,8 @@ public class Driver {
   // Driver program to return a random user's home timeline
   public double randomHomeTimeline() {
 
-
     List<Integer> users = api.getUsers();
 
-    // Running infinite loop, can maybe try using a timer library to run for 10 seconds for example
-//    while (true) {
-//      int random_user_id = users.get((int) (Math.random() * users.size()));
-//      List<Tweet> tweets = api.getTimeline(random_user_id);
-//      for (Tweet t : tweets) {
-//        System.out.println(t);
-//      }
-//    }
     int run_time_ms = 10000;
 
     int count = 0;

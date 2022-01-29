@@ -16,4 +16,5 @@ Difference: 7:05
 
 Posts/second = 1,000,000 / 425 = 2,352.9412 or 2353
 
-Timelines/second = 33
+Timelines/second = 24.4
+Maybe try adding index on user_id

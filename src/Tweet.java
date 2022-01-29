@@ -1,5 +1,6 @@
 import java.sql.Timestamp;
 
+// Represents a tweet that is posted on Twitter
 public class Tweet {
 
   private int tweet_id;
@@ -7,6 +8,7 @@ public class Tweet {
   private Timestamp timestamp;
   private String text;
 
+  // Convenience constructor
   public Tweet(int user_id, String text) {
     this.user_id = user_id;
     this.text = text;
