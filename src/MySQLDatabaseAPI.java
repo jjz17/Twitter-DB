@@ -27,24 +27,6 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
     // Select a random followee
     int random_followee = followees.get((int) (Math.random() * followees.size()));
 
-//    List<Tweet> tweets = new ArrayList<>();
-//
-//    String sql =
-//        "SELECT tweet_text " + "FROM tweets " + "WHERE user_id = " + random_followee + " LIMIT 10";
-//
-//    try {
-//      // get connection and initialize statement
-//      Connection con = this.dbUtils.getConnection();
-//      Statement stmt = con.createStatement();
-//      ResultSet rs = stmt.executeQuery(sql);
-//      while (rs.next() != false) tweets.add(new Tweet(random_followee, rs.getString("tweet_text")));
-//      rs.close();
-//      stmt.close();
-//    } catch (SQLException e) {
-//      System.err.println(e.getMessage());
-//      e.printStackTrace();
-//    }
-
     return this.getTweets(random_followee);
   }
 
@@ -59,7 +41,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
       Connection con = this.dbUtils.getConnection();
       Statement stmt = con.createStatement();
       ResultSet rs = stmt.executeQuery(sql);
-      while (rs.next() != false) followers.add(rs.getInt("user_id"));
+      while (rs.next()) followers.add(rs.getInt("user_id"));
       rs.close();
       stmt.close();
     } catch (SQLException e) {
@@ -82,7 +64,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
       Connection con = this.dbUtils.getConnection();
       Statement stmt = con.createStatement();
       ResultSet rs = stmt.executeQuery(sql);
-      while (rs.next() != false) followees.add(rs.getInt("follows_id"));
+      while (rs.next()) followees.add(rs.getInt("follows_id"));
       rs.close();
       stmt.close();
     } catch (SQLException e) {
@@ -105,7 +87,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
       Connection con = this.dbUtils.getConnection();
       Statement stmt = con.createStatement();
       ResultSet rs = stmt.executeQuery(sql);
-      while (rs.next() != false) tweets.add(new Tweet(user_id, rs.getString("tweet_text")));
+      while (rs.next()) tweets.add(new Tweet(user_id, rs.getString("tweet_text")));
       rs.close();
       stmt.close();
     } catch (SQLException e) {
@@ -127,7 +109,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
       Connection con = this.dbUtils.getConnection();
       Statement stmt = con.createStatement();
       ResultSet rs = stmt.executeQuery(sql);
-      while (rs.next() != false) users.add(rs.getInt("user_id"));
+      while (rs.next()) users.add(rs.getInt("user_id"));
       rs.close();
       stmt.close();
     } catch (SQLException e) {
