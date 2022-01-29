@@ -87,7 +87,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
       Connection con = this.dbUtils.getConnection();
       Statement stmt = con.createStatement();
       ResultSet rs = stmt.executeQuery(sql);
-      while (rs.next()) tweets.add(new Tweet(user_id, rs.getString("tweet_text")));
+      while (rs.next()) tweets.add(new Tweet(rs.getInt("tweet_id") ,user_id, rs.getTimestamp("tweet_ts"), rs.getString("tweet_text")));
       rs.close();
       stmt.close();
     } catch (SQLException e) {
