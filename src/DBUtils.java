@@ -1,5 +1,6 @@
 import java.sql.*;
 
+// Utility class for Database API
 public class DBUtils {
 
   private String url;
@@ -14,6 +15,7 @@ public class DBUtils {
     this.con = getConnection();
   }
 
+  // Establishes a connection to the database
   public Connection getConnection()
   {
     if (con == null) {
@@ -29,6 +31,7 @@ public class DBUtils {
     return con;
   }
 
+  // Closes the connection to the database
   public void closeConnection() {
     try {
       con.close();
@@ -39,6 +42,7 @@ public class DBUtils {
   }
 
 
+  // Inserts a single record into the database
   public int insertOneRecord(String insertSQL)
   {
     // System.out.println("INSERT STATEMENT: "+insertSQL);
@@ -66,72 +70,4 @@ public class DBUtils {
     }
     return key;
   }
-
-//  public void getNRecords(String selectSQL) {
-//    int key = -1;
-//
-//    try {
-//      Connection con = getConnection();
-//      Statement stmt = con.createStatement();
-////      String sqlGet = "SELECT "+keyColumn+" FROM "+table+" WHERE "+valueColumn+" = '"+term.toUpperCase()+"'";
-//      ResultSet rs = stmt.executeQuery(selectSQL);
-//      if (rs.next())
-//        key = rs.getInt(1);
-//      else {
-//        String sqlInsert = "INSERT INTO "+table+" ("+valueColumn+") VALUES ('"+term.toUpperCase()+"')";
-//        stmt.executeUpdate(sqlInsert, Statement.RETURN_GENERATED_KEYS);
-//        rs = stmt.getGeneratedKeys();
-//        if (rs.next()) key = rs.getInt(1);
-//      }
-//
-//      rs.close();
-//      stmt.close();
-//
-//    } catch (SQLException e) {
-//      System.err.println(e.getMessage());
-//      e.printStackTrace();
-//    }
-//
-////    return key;
-//  }
-
-
-  /**
-   * For a table of terms consisting of an id and string value pair, get the id of the term
-   * adding a new term if it does not yet exist in the table
-   * @param table The table of terms
-   * @param term The term value
-   * @return The id of the term
-   */
-  public int getOrInsertTerm(String table, String keyColumn, String valueColumn, String term)
-  {
-
-    int key = -1;
-
-    try {
-      Connection con = getConnection();
-      Statement stmt = con.createStatement();
-      String sqlGet = "SELECT "+keyColumn+" FROM "+table+" WHERE "+valueColumn+" = '"+term.toUpperCase()+"'";
-      ResultSet rs = stmt.executeQuery(sqlGet);
-      if (rs.next())
-        key = rs.getInt(1);
-      else {
-        String sqlInsert = "INSERT INTO "+table+" ("+valueColumn+") VALUES ('"+term.toUpperCase()+"')";
-        stmt.executeUpdate(sqlInsert, Statement.RETURN_GENERATED_KEYS);
-        rs = stmt.getGeneratedKeys();
-        if (rs.next()) key = rs.getInt(1);
-      }
-
-      rs.close();
-      stmt.close();
-
-    } catch (SQLException e) {
-      System.err.println(e.getMessage());
-      e.printStackTrace();
-    }
-
-    return key;
-
-  }
-
 }
