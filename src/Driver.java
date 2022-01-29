@@ -79,16 +79,14 @@ public class Driver {
     System.out.println("Start time: " + dtf.format(start));
     System.out.println("End time: " + dtf.format(end));
 
-    double minutes = start.until(end, ChronoUnit.MINUTES);
-    double seconds = start.until(end, ChronoUnit.SECONDS);
-    double total_runtime = minutes * 60 + seconds;
+    double total_runtime_seconds = start.until(end, ChronoUnit.SECONDS);
 
-    System.out.println("Total runtime: " + total_runtime + " seconds");
+    System.out.println("Total runtime: " + total_runtime_seconds + " seconds");
 
     // Output for profiling rate of home timeline retrieval
 //    System.out.println("Average home timelines retrieved/second: " + retrieval_rate);
 
     // Output for profiling rate of tweet posting
-    System.out.println("Average posts/second: " + 1000000.0/total_runtime);
+    System.out.println("Average posts/second: " + 1000000.0/total_runtime_seconds);
   }
 }

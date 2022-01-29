@@ -24,5 +24,5 @@ Maybe try adding index on user_id
 Starting performance test...
 Start time: 2022/01/29 15:04:25
 End time: 2022/01/29 15:10:09
-Total runtime: 643.0 seconds
-Average posts/second: 1555.2099533437015
+Total runtime: 344.0 seconds
+Average posts/second: 2906.977
