@@ -41,7 +41,7 @@ public class Driver {
   }
 
   // Driver program to return a random user's home timeline
-  public int randomHomeTimeline() {
+  public double randomHomeTimeline() {
 
 
     List<Integer> users = api.getUsers();
@@ -54,8 +54,10 @@ public class Driver {
 //        System.out.println(t);
 //      }
 //    }
+    int run_time_ms = 10000;
+
     int count = 0;
-    long endTime = System.currentTimeMillis() + 1000;
+    long endTime = System.currentTimeMillis() + run_time_ms;
     while (System.currentTimeMillis() < endTime) {
       int random_user_id = users.get((int) (Math.random() * users.size()));
       List<Tweet> tweets = api.getTimeline(random_user_id);
@@ -66,7 +68,7 @@ public class Driver {
     }
 
 
-    return count;
+    return count / (run_time_ms / 1000.0);
   }
 
   // Main method
