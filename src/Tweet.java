@@ -1,7 +1,11 @@
+import java.sql.Timestamp;
+
 public class Tweet {
 
+  private int tweet_id;
   private int user_id;
   private String text;
+  private Timestamp timestamp;
 
   public Tweet(int user_id, String text) {
     this.user_id = user_id;
