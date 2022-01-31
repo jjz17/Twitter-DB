@@ -69,8 +69,8 @@ public class Driver {
 
     LocalDateTime start = LocalDateTime.now();
 
-    driver.readTweets();
-//    double retrieval_rate = driver.randomHomeTimeline(10000);
+//    driver.readTweets();
+    double retrieval_rate = driver.randomHomeTimeline(10000);
 
     LocalDateTime end = LocalDateTime.now();
     api.closeConnection();
@@ -84,9 +84,9 @@ public class Driver {
     System.out.println("Total runtime: " + total_runtime_seconds + " seconds");
 
     // Output for profiling rate of home timeline retrieval
-//    System.out.println("Average home timelines retrieved/second: " + retrieval_rate);
+    System.out.println("Average home timelines retrieved/second: " + retrieval_rate);
 
     // Output for profiling rate of tweet posting
-    System.out.println("Average posts/second: " + 1000000.0/total_runtime_seconds);
+//    System.out.println("Average posts/second: " + 1000000.0/total_runtime_seconds);
   }
 }
