@@ -33,3 +33,9 @@ Start time: 2022/01/30 21:06:57
 End time: 2022/01/30 21:12:58
 Total runtime: 361.0 seconds
 Average posts/second: 2770.083102493075
+
+Starting performance test...
+Start time: 2022/01/30 21:16:25
+End time: 2022/01/30 21:17:25
+Total runtime: 60.0 seconds
+Average home timelines retrieved/second: 872.8333333333334
