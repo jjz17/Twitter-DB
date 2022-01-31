@@ -70,7 +70,7 @@ public class Driver {
     LocalDateTime start = LocalDateTime.now();
 
 //    driver.readTweets();
-    double retrieval_rate = driver.randomHomeTimeline(10000);
+    double retrieval_rate = driver.randomHomeTimeline(60000);
 
     LocalDateTime end = LocalDateTime.now();
     api.closeConnection();
