@@ -27,7 +27,6 @@ End time: 2022/01/29 15:10:09
 Total runtime: 344.0 seconds
 Average posts/second: 2906.977
 
-
 Starting performance test...
 Start time: 2022/01/30 21:06:57
 End time: 2022/01/30 21:12:58
