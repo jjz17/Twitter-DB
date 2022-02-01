@@ -35,7 +35,7 @@ public interface IDatabaseAPI {
    * @param user_id target user
    * @return a list of tweets
    */
-  List<Tweet> getTweets(Integer user_id);
+  List<Tweet> getMostRecentTweets(Integer user_id);
 
   /**
    * Find all distinct users

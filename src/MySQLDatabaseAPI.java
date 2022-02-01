@@ -26,7 +26,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
     // Select a random followee
     int random_followee = followees.get((int) (Math.random() * followees.size()));
 
-    return this.getTweets(random_followee);
+    return this.getMostRecentTweets(random_followee);
   }
 
   @Override
@@ -79,7 +79,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
   }
 
   @Override
-  public List<Tweet> getTweets(Integer user_id) {
+  public List<Tweet> getMostRecentTweets(Integer user_id) {
 
     // Select the full tweet (tweet id, user id, timestamp, and text)
     String sql = "SELECT * " + "FROM tweets " + "WHERE user_id = " + user_id + " LIMIT 10";
