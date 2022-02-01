@@ -81,6 +81,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
   @Override
   public List<Tweet> getTweets(Integer user_id) {
 
+    // Select the full tweet (tweet id, user id, timestamp, and text)
     String sql = "SELECT * " + "FROM tweets " + "WHERE user_id = " + user_id + " LIMIT 10";
 
     List<Tweet> tweets = new ArrayList<>();
