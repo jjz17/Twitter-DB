@@ -1,0 +1,22 @@
+
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM tweets;
+ALTER TABLE tweets AUTO_INCREMENT = 1;
+SET SQL_SAFE_UPDATES = 1;
+
+SELECT * 
+FROM tweets 
+WHERE user_id = 1 
+ORDER BY tweet_ts DESC
+LIMIT 10;
+
+SELECT * FROM follows LIMIT 1000;
+SELECT * FROM tweets LIMIT 1000;
+
+SELECT COUNT(*) from tweets LIMIT 1000;
+
+SELECT COUNT(*) from follows LIMIT 1000;
+
+-- 10,000 unique users
+SELECT COUNT(DISTINCT(user_id))
+FROM tweets;
