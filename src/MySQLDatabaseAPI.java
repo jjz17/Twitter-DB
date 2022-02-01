@@ -82,7 +82,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
   public List<Tweet> getMostRecentTweets(Integer user_id) {
 
     // Select the full tweet (tweet id, user id, timestamp, and text)
-    String sql = "SELECT * " + "FROM tweets " + "WHERE user_id = " + user_id + " LIMIT 10";
+    String sql = "SELECT * " + "FROM tweets " + "WHERE user_id = " + user_id + " ORDER BY tweet_ts DESC LIMIT 10";
 
     List<Tweet> tweets = new ArrayList<>();
 
