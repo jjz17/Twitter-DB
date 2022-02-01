@@ -91,6 +91,7 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
       Connection con = this.dbUtils.getConnection();
       Statement stmt = con.createStatement();
       ResultSet rs = stmt.executeQuery(sql);
+      // Iterate through result set and add created Tweet objects to ArrayList
       while (rs.next()) {
         tweets.add(
             new Tweet(

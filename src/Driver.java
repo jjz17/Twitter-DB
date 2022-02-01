@@ -6,11 +6,15 @@ import java.util.List;
 
 // Driver class to run performance testing
 public class Driver {
-  private static IDatabaseAPI api = new MySQLDatabaseAPI();
+  private IDatabaseAPI api;
   // Environmental variables
   public static final String url = System.getenv("url");
   public static final String user = System.getenv("user");
   public static final String password = System.getenv("password");
+
+  public Driver(IDatabaseAPI api) {
+    this.api = api;
+  }
 
   // Read tweets from tweets.csv and posts them (inserts them into database)
   public void readTweets() {
@@ -59,9 +63,9 @@ public class Driver {
 
   // Main method
   public static void main(String[] args) {
-    Driver driver = new Driver();
+    Driver driver = new Driver(new MySQLDatabaseAPI());
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-    api.authenticate(url, user, password);
+    driver.api.authenticate(url, user, password);
 
     // Performance test starting dialogue
     System.out.println("Starting performance test...");
@@ -72,7 +76,7 @@ public class Driver {
     double retrieval_rate = driver.randomHomeTimeline(60000);
 
     LocalDateTime end = LocalDateTime.now();
-    api.closeConnection();
+    driver.api.closeConnection();
 
     // Log start and end time of performance test
     System.out.println("Start time: " + dtf.format(start));
