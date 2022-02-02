@@ -18,7 +18,7 @@ public class Driver {
 
   // Read tweets from tweets.csv and posts them (inserts them into database)
   public void readTweets() {
-    String csvFilePath = "hw1_data/tweet.csv";
+    String csvFilePath = "data/tweet.csv";
 
     try {
       BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
