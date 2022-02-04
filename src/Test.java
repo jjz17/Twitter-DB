@@ -1,6 +1,7 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Test {
@@ -9,10 +10,15 @@ public class Test {
 
     LocalDateTime start = LocalDateTime.now();
 
-    long endTime = System.currentTimeMillis() + 70000;
+    long endTime = System.currentTimeMillis() + 1000;
+
+    List<Integer> ints = new ArrayList<>();
+    ints.add(1);
+    ints.add(2);
+    ints.add(3);
 
     while (System.currentTimeMillis() < endTime) {
-
+      System.out.println(ints.get((int) (Math.random() * ints.size())));
     }
 
     LocalDateTime end = LocalDateTime.now();
