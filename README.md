@@ -35,4 +35,4 @@ https://www.vogella.com/tutorials/MySQLJava/article.html
  - Average home timelines retrieved/second: 872.8333333333334
 
 
-url=jdbc:mysql://localhost:3306/twitter?serverTimezone\=EST5EDT;user=root;password=jiajia2002
+ENNV_VARS: url=jdbc:mysql://localhost:3306/twitter?serverTimezone\=EST5EDT;user=root;password=jiajia2002
