@@ -33,3 +33,9 @@ https://www.vogella.com/tutorials/MySQLJava/article.html
  - Total runtime: 60.0 seconds
 
  - Average home timelines retrieved/second: 872.8333333333334
+
+<dependency>
+    <groupId>redis.clients</groupId>
+    <artifactId>jedis</artifactId>
+    <version>2.8.1</version>
+</dependency>
