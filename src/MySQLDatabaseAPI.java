@@ -20,15 +20,6 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
     dbUtils.insertOneRecord(sql);
   }
 
-  //  @Override
-  //  public List<Tweet> getTimeline(Integer user_id) {
-  //    List<Integer> followees = this.getFollowees(user_id);
-  //    // Select a random followee
-  //    int random_followee = followees.get((int) (Math.random() * followees.size()));
-  //
-  //    return this.getMostRecentTweets(random_followee);
-  //  }
-
   public String listToString(List<Integer> users) {
     // For case with no elements
     if (users.size() == 0) {
