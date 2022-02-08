@@ -29,6 +29,6 @@ public class JedisTest {
     }
     long endTime = System.nanoTime();
     long duration = (endTime - startTime) / 1000000;
-    System.out.println((float) N * 1000.0 / duration + " inserts per second");
+    System.out.println((float) N * 1000.0 / duration + " record inserts per second");
   }
 }
