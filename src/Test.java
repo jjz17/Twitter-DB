@@ -2,10 +2,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Test {
   public static void main(String[] args) {
+    MySQLDatabaseAPI api = new MySQLDatabaseAPI();
+    ArrayList<Integer> ints = new ArrayList<>(Arrays.asList(-1,100023,124932));
+    System.out.println(api.listToString(ints));
 //    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 //
 //    LocalDateTime start = LocalDateTime.now();
