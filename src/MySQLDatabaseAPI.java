@@ -20,11 +20,52 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
     dbUtils.insertOneRecord(sql);
   }
 
+//  @Override
+//  public List<Tweet> getTimeline(Integer user_id) {
+//    List<Integer> followees = this.getFollowees(user_id);
+//    // Select a random followee
+//    int random_followee = followees.get((int) (Math.random() * followees.size()));
+//
+//    return this.getMostRecentTweets(random_followee);
+//  }
+
+  public String listToString(List<Integer> users) {
+    StringBuilder result = new StringBuilder();
+
+    return result.toString();
+  }
+
   @Override
   public List<Tweet> getTimeline(Integer user_id) {
     List<Integer> followees = this.getFollowees(user_id);
-    // Select a random followee
-    int random_followee = followees.get((int) (Math.random() * followees.size()));
+
+    // Select the full tweet (tweet id, user id, timestamp, and text)
+    String sql = "SELECT * " + "FROM tweets " + "WHERE user_id IN " + " ORDER BY tweet_ts DESC LIMIT 10";
+
+    List<Tweet> tweets = new ArrayList<>();
+
+    try {
+      // get connection and initialize statement
+      Connection con = this.dbUtils.getConnection();
+      Statement stmt = con.createStatement();
+      ResultSet rs = stmt.executeQuery(sql);
+      // Iterate through result set and add created Tweet objects to ArrayList
+      while (rs.next()) {
+        tweets.add(
+                new Tweet(
+                        rs.getInt("tweet_id"),
+                        user_id,
+                        rs.getTimestamp("tweet_ts"),
+                        rs.getString("tweet_text")));
+      }
+      rs.close();
+      stmt.close();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+      e.printStackTrace();
+    }
+
+    return tweets;
 
     return this.getMostRecentTweets(random_followee);
   }
