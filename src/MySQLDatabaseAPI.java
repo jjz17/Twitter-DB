@@ -20,14 +20,14 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
     dbUtils.insertOneRecord(sql);
   }
 
-//  @Override
-//  public List<Tweet> getTimeline(Integer user_id) {
-//    List<Integer> followees = this.getFollowees(user_id);
-//    // Select a random followee
-//    int random_followee = followees.get((int) (Math.random() * followees.size()));
-//
-//    return this.getMostRecentTweets(random_followee);
-//  }
+  //  @Override
+  //  public List<Tweet> getTimeline(Integer user_id) {
+  //    List<Integer> followees = this.getFollowees(user_id);
+  //    // Select a random followee
+  //    int random_followee = followees.get((int) (Math.random() * followees.size()));
+  //
+  //    return this.getMostRecentTweets(random_followee);
+  //  }
 
   public String listToString(List<Integer> users) {
     // For case with no elements
@@ -42,9 +42,8 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
       for (int i = 0; i < users.size() - 1; i++) {
         result.append(users.get(i).toString()).append(",");
       }
-      result.append(users.get(users.size()-1).toString()).append(")");
-    }
-    else {
+      result.append(users.get(users.size() - 1).toString()).append(")");
+    } else {
       return result.append(users.get(0).toString()).append(")").toString();
     }
 
@@ -146,7 +145,12 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
   public List<Tweet> getMostRecentTweets(Integer user_id) {
 
     // Select the full tweet (tweet id, user id, timestamp, and text)
-    String sql = "SELECT * " + "FROM tweets " + "WHERE user_id = " + user_id + " ORDER BY tweet_ts DESC LIMIT 10";
+    String sql =
+        "SELECT * "
+            + "FROM tweets "
+            + "WHERE user_id = "
+            + user_id
+            + " ORDER BY tweet_ts DESC LIMIT 10";
 
     List<Tweet> tweets = new ArrayList<>();
 
