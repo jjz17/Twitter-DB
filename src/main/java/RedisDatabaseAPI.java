@@ -1,6 +1,11 @@
 import java.util.List;
 
+import redis.clients.jedis.Jedis;
+
 public class RedisDatabaseAPI implements IDatabaseAPI {
+
+  private Jedis jedis = new Jedis();
+
   @Override
   public void postTweet(Tweet t) {
 
