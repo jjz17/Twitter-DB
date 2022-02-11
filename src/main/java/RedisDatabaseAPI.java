@@ -22,8 +22,12 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
 
     // Create tweet key
     String tweet_name = "tweet_" + tweet_id;
+
     // Create the tweet value representation
-    jedis.set(tweet_name, "First tweet");
+    String tweet_info = tweet_id + "|" + user_id + "|" + timestamp + "|" + text;
+
+    // Put the tweet key, value pair into Redis server
+    jedis.set(tweet_name, tweet_info);
 
     // Add tweet to every follower's timeline bucket
     List<String> followers = jedis.lrange("follows_" + user_id, 0 , -1);
@@ -31,11 +35,6 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
       String timeline = "timeline_" + follower;
       // Add the tweet id to the front of the timeline
       jedis.lpush(tweet_id);
-      // Remove last tweet if timeline is longer than 10
-      if (jedis.llen(timeline) > 10) {
-        jedis.rpop(timeline);
-      }
-
     }
 
     jedis.rpush("timeline_1", jedis.get(tweet_name));
@@ -46,7 +45,7 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
 
   @Override
   public List<Tweet> getTimeline(Integer user_id) {
-    List<String> timeline = jedis.lrange("timeline_" + user_id, 0, -1);
+    List<String> timeline = jedis.lrange("timeline_" + user_id, 0, 9);
     List<Tweet> tweets = new ArrayList<>();
     for (String tweet_id : timeline) {
       String tweet_string = jedis.get("tweet_" + tweet_id);
@@ -54,8 +53,8 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
       String[] args = tweet_string.split("\\|");
       int t_id = Integer.parseInt(args[0]);
       int u_id = Integer.parseInt(args[1]);
-      String text = args[2];
-      Timestamp timestamp = new Timestamp(Long.parseLong(args[3]));
+      Timestamp timestamp = new Timestamp(Long.parseLong(args[2]));
+      String text = args[3];
 
       // Create tweet object from attributes
       Tweet tweet = new Tweet(t_id, u_id, timestamp, text);
