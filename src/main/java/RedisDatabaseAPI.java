@@ -17,7 +17,7 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
 
     // Necessary values
     String tweet_id = jedis.get("next_tweet_id");
-    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+    long timestamp = System.currentTimeMillis();
 
 
     // Create tweet key
@@ -50,10 +50,15 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
     List<Tweet> tweets = new ArrayList<>();
     for (String tweet_id : timeline) {
       String tweet_string = jedis.get("tweet_" + tweet_id);
-      // Parse tweet string to extract attributes
+      // Parse tweet string to extract attributes, split by |
+      String[] args = tweet_string.split("\\|");
+      int t_id = Integer.parseInt(args[0]);
+      int u_id = Integer.parseInt(args[1]);
+      String text = args[2];
+      Timestamp timestamp = new Timestamp(Long.parseLong(args[3]));
 
       // Create tweet object from attributes
-      Tweet tweet = new Tweet();
+      Tweet tweet = new Tweet(t_id, u_id, timestamp, text);
       // Add tweet to the list
       tweets.add(tweet);
     }
