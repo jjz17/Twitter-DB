@@ -8,6 +8,16 @@ public class JedisTest {
     Jedis jedis = new Jedis();
 
     jedis.flushAll();
+
+    jedis.set("next_tweet_id", "0");
+
+    // First post by user 0
+    String tweet_name = "tweet_" + jedis.get("next_tweet_id");
+    jedis.set(tweet_name, "First tweet");
+    jedis.rpush("timeline_1", jedis.get(tweet_name));
+    for (String tweet : jedis.lrange("timeline_1", 0, 9)) {
+      System.out.println(tweet);
+    }
 //    jedis.set("hello", "world");
 //    jedis.set("counter", "1");
 //    jedis.incr("counter");
