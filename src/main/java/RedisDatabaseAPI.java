@@ -49,21 +49,35 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
     List<String> timeline = jedis.lrange("timeline_" + user_id, 0, -1);
     List<Tweet> tweets = new ArrayList<>();
     for (String tweet_id : timeline) {
-      String tweet = jedis.get("tweet_" + tweet_id);
+      String tweet_string = jedis.get("tweet_" + tweet_id);
       // Parse tweet string to extract attributes
 
+      // Create tweet object from attributes
+      Tweet tweet = new Tweet();
+      // Add tweet to the list
+      tweets.add(tweet);
     }
     return tweets;
   }
 
   @Override
   public List<Integer> getFollowers(Integer user_id) {
-    return null;
+    List<String> followers_strings = jedis.lrange("follows_" + user_id, 0 ,-1);
+    List<Integer> followers = new ArrayList<>();
+    for (String follower : followers_strings) {
+      followers.add(Integer.parseInt(follower));
+    }
+    return followers;
   }
 
   @Override
   public List<Integer> getFollowees(Integer user_id) {
-    return null;
+    List<String> followees_strings = jedis.lrange("followees_" + user_id, 0 ,-1);
+    List<Integer> followees = new ArrayList<>();
+    for (String follower : followees_strings) {
+      followees.add(Integer.parseInt(follower));
+    }
+    return followees;
   }
 
   @Override
