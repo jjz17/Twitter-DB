@@ -1,4 +1,3 @@
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,6 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
     // Increment next_tweet_id
     this.jedis.incr("next_tweet_id");
 
-
     // Create tweet key
     String tweet_name = "tweet_" + tweet_id;
 
@@ -39,17 +37,12 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
     // Put the tweet key, value pair into Redis server
     this.jedis.set(tweet_name, tweet_info);
 
-    // Add tweet to every follower's timeline bucket
+    // Add tweet id to every follower's timeline bucket
     List<String> followers = this.jedis.lrange("follows_" + user_id, 0 , -1);
     for (String follower : followers) {
       String timeline = "timeline_" + follower;
       // Add the tweet id to the front of the timeline
-      this.jedis.lpush(tweet_id);
-    }
-
-    this.jedis.rpush("timeline_1", this.jedis.get(tweet_name));
-    for (String tweet : this.jedis.lrange("timeline_1", 0, 9)) {
-      System.out.println(tweet);
+      this.jedis.lpush(timeline, tweet_id);
     }
   }
 
