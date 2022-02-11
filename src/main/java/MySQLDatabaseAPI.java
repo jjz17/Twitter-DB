@@ -133,43 +133,6 @@ public class MySQLDatabaseAPI implements IDatabaseAPI {
   }
 
   @Override
-  public List<Tweet> getMostRecentTweets(Integer user_id) {
-
-    // Select the full tweet (tweet id, user id, timestamp, and text)
-    String sql =
-        "SELECT * "
-            + "FROM tweets "
-            + "WHERE user_id = "
-            + user_id
-            + " ORDER BY tweet_ts DESC LIMIT 10";
-
-    List<Tweet> tweets = new ArrayList<>();
-
-    try {
-      // get connection and initialize statement
-      Connection con = this.dbUtils.getConnection();
-      Statement stmt = con.createStatement();
-      ResultSet rs = stmt.executeQuery(sql);
-      // Iterate through result set and add created Tweet objects to ArrayList
-      while (rs.next()) {
-        tweets.add(
-            new Tweet(
-                rs.getInt("tweet_id"),
-                user_id,
-                rs.getTimestamp("tweet_ts"),
-                rs.getString("tweet_text")));
-      }
-      rs.close();
-      stmt.close();
-    } catch (SQLException e) {
-      System.err.println(e.getMessage());
-      e.printStackTrace();
-    }
-
-    return tweets;
-  }
-
-  @Override
   public List<Integer> getUsers() {
     String sql = "SELECT DISTINCT(user_id) " + "FROM follows";
 

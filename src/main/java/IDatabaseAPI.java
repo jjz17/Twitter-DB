@@ -31,13 +31,6 @@ public interface IDatabaseAPI {
   List<Integer> getFollowees(Integer user_id);
 
   /**
-   * Find tweets posted by a given user
-   * @param user_id target user
-   * @return a list of tweets
-   */
-  List<Tweet> getMostRecentTweets(Integer user_id);
-
-  /**
    * Find all distinct users
    * @return a list of user id's
    */

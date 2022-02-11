@@ -6,8 +6,15 @@ import java.util.List;
 import redis.clients.jedis.Jedis;
 
 public class RedisDatabaseAPI implements IDatabaseAPI {
+  private Jedis jedis;
 
-  private Jedis jedis = new Jedis();
+  public RedisDatabaseAPI() {
+    this.jedis = new Jedis();
+
+    // Set up
+    this.jedis.flushAll();
+    this.jedis.set("next_tweet_id", "0");
+  }
 
   @Override
   public void postTweet(Tweet t) {
@@ -16,8 +23,11 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
     String text = t.getText();
 
     // Necessary values
-    String tweet_id = jedis.get("next_tweet_id");
+    String tweet_id = this.jedis.get("next_tweet_id");
     long timestamp = System.currentTimeMillis();
+
+    // Increment next_tweet_id
+    this.jedis.incr("next_tweet_id");
 
 
     // Create tweet key
@@ -27,28 +37,28 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
     String tweet_info = tweet_id + "|" + user_id + "|" + timestamp + "|" + text;
 
     // Put the tweet key, value pair into Redis server
-    jedis.set(tweet_name, tweet_info);
+    this.jedis.set(tweet_name, tweet_info);
 
     // Add tweet to every follower's timeline bucket
-    List<String> followers = jedis.lrange("follows_" + user_id, 0 , -1);
+    List<String> followers = this.jedis.lrange("follows_" + user_id, 0 , -1);
     for (String follower : followers) {
       String timeline = "timeline_" + follower;
       // Add the tweet id to the front of the timeline
-      jedis.lpush(tweet_id);
+      this.jedis.lpush(tweet_id);
     }
 
-    jedis.rpush("timeline_1", jedis.get(tweet_name));
-    for (String tweet : jedis.lrange("timeline_1", 0, 9)) {
+    this.jedis.rpush("timeline_1", this.jedis.get(tweet_name));
+    for (String tweet : this.jedis.lrange("timeline_1", 0, 9)) {
       System.out.println(tweet);
     }
   }
 
   @Override
   public List<Tweet> getTimeline(Integer user_id) {
-    List<String> timeline = jedis.lrange("timeline_" + user_id, 0, 9);
+    List<String> timeline = this.jedis.lrange("timeline_" + user_id, 0, 9);
     List<Tweet> tweets = new ArrayList<>();
     for (String tweet_id : timeline) {
-      String tweet_string = jedis.get("tweet_" + tweet_id);
+      String tweet_string = this.jedis.get("tweet_" + tweet_id);
       // Parse tweet string to extract attributes, split by |
       String[] args = tweet_string.split("\\|");
       int t_id = Integer.parseInt(args[0]);
@@ -66,7 +76,7 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
 
   @Override
   public List<Integer> getFollowers(Integer user_id) {
-    List<String> followers_strings = jedis.lrange("follows_" + user_id, 0 ,-1);
+    List<String> followers_strings = this.jedis.lrange("follows_" + user_id, 0 ,-1);
     List<Integer> followers = new ArrayList<>();
     for (String follower : followers_strings) {
       followers.add(Integer.parseInt(follower));
@@ -76,7 +86,7 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
 
   @Override
   public List<Integer> getFollowees(Integer user_id) {
-    List<String> followees_strings = jedis.lrange("followees_" + user_id, 0 ,-1);
+    List<String> followees_strings = this.jedis.lrange("followees_" + user_id, 0 ,-1);
     List<Integer> followees = new ArrayList<>();
     for (String follower : followees_strings) {
       followees.add(Integer.parseInt(follower));
@@ -85,22 +95,13 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
   }
 
   @Override
-  public List<Tweet> getMostRecentTweets(Integer user_id) {
-    return null;
-  }
-
-  @Override
   public List<Integer> getUsers() {
     return null;
   }
 
   @Override
-  public void authenticate(String url, String user, String password) {
-
-  }
+  public void authenticate(String url, String user, String password) {}
 
   @Override
-  public void closeConnection() {
-
-  }
+  public void closeConnection() {}
 }
