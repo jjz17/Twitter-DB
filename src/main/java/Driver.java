@@ -4,6 +4,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import redis.clients.jedis.Jedis;
+
 // Driver class to run performance testing
 public class Driver {
   private IDatabaseAPI api;
@@ -63,31 +65,66 @@ public class Driver {
 
   // Main method
   public static void main(String[] args) {
-    Driver driver = new Driver(new MySQLDatabaseAPI());
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-    driver.api.authenticate(url, user, password);
 
-    // Performance test starting dialogue
-    System.out.println("Starting performance test...");
+    Driver driver = new Driver(new RedisDatabaseAPI());
 
-    LocalDateTime start = LocalDateTime.now();
+    // Jedis driver
+    Jedis jedis = new Jedis();
 
-//    driver.readTweets();
-    double retrieval_rate = driver.randomHomeTimeline(1000);
+    jedis.flushAll();
 
-    LocalDateTime end = LocalDateTime.now();
-    driver.api.closeConnection();
+    // Load the followers information into redis server
+    String csvFilePath = "data/follows_sample.csv";
+//    String csvFilePath = "data/follows.csv";
 
-    // Log start and end time of performance test
-    System.out.println("Start time: " + dtf.format(start));
-    System.out.println("End time: " + dtf.format(end));
-    double total_runtime_seconds = start.until(end, ChronoUnit.SECONDS);
-    System.out.println("Total runtime: " + total_runtime_seconds + " seconds");
+    try {
+      BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
+      String lineText = null;
 
-    // Output for profiling rate of tweet posting
-//    System.out.println("Average posts/second: " + 1000000.0/total_runtime_seconds);
+      // Skip first line of labels
+      lineReader.readLine();
 
-    // Output for profiling rate of home timeline retrieval
-    System.out.println("Average home timelines retrieved/second: " + retrieval_rate);
+      while ((lineText = lineReader.readLine()) != null) {
+        String[] data = lineText.split(",");
+        int user_id = Integer.parseInt(data[0]);
+        int follows_id = Integer.parseInt(data[1]);
+
+        // Create the follows lists
+        String follows_list_key = "follows_" + follows_id;
+        // Add the following user to the list
+        jedis.rpush(follows_list_key, "" + user_id);
+      }
+    } catch (IOException ex) {
+      System.err.println(ex.getMessage());
+    }
+
+
+    // Driver code setup to performance test MySQL API
+//    Driver driver = new Driver(new MySQLDatabaseAPI());
+//    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//    driver.api.authenticate(url, user, password);
+//
+//    // Performance test starting dialogue
+//    System.out.println("Starting performance test...");
+//
+//    LocalDateTime start = LocalDateTime.now();
+//
+////    driver.readTweets();
+//    double retrieval_rate = driver.randomHomeTimeline(1000);
+//
+//    LocalDateTime end = LocalDateTime.now();
+//    driver.api.closeConnection();
+//
+//    // Log start and end time of performance test
+//    System.out.println("Start time: " + dtf.format(start));
+//    System.out.println("End time: " + dtf.format(end));
+//    double total_runtime_seconds = start.until(end, ChronoUnit.SECONDS);
+//    System.out.println("Total runtime: " + total_runtime_seconds + " seconds");
+//
+//    // Output for profiling rate of tweet posting
+////    System.out.println("Average posts/second: " + 1000000.0/total_runtime_seconds);
+//
+//    // Output for profiling rate of home timeline retrieval
+//    System.out.println("Average home timelines retrieved/second: " + retrieval_rate);
   }
 }
