@@ -21,7 +21,7 @@ public class Driver {
   // Read tweets from tweets.csv and posts them (inserts them into database)
   public void readTweets() {
     String csvFilePath = "data/tweet.csv";
-
+//    String csvFilePath = "data/tweets_sample.csv";
     try {
       BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
       String lineText = null;
@@ -66,16 +66,14 @@ public class Driver {
   // Main method
   public static void main(String[] args) {
 
-    Driver driver = new Driver(new RedisDatabaseAPI());
-
     // Jedis driver
     Jedis jedis = new Jedis();
 
     jedis.flushAll();
 
     // Load the followers information into redis server
-    String csvFilePath = "data/follows_sample.csv";
-//    String csvFilePath = "data/follows.csv";
+//    String csvFilePath = "data/follows_sample.csv";
+    String csvFilePath = "data/follows.csv";
 
     try {
       BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
@@ -97,6 +95,16 @@ public class Driver {
     } catch (IOException ex) {
       System.err.println(ex.getMessage());
     }
+
+    Driver driver = new Driver(new RedisDatabaseAPI());
+
+    long startTime = System.nanoTime();
+
+    driver.readTweets();
+
+    long endTime = System.nanoTime();
+    long duration = (endTime - startTime) / 1000000;
+    System.out.println((float) 1000000 * 1000.0 / duration + " record inserts per second");
 
 
     // Driver code setup to performance test MySQL API
