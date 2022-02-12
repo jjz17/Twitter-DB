@@ -56,6 +56,12 @@ public class Driver {
       int random_user_id = users.get((int) (Math.random() * users.size()));
       // Retrieve timeline (list of tweets)
       List<Tweet> tweets = api.getTimeline(random_user_id);
+
+      // Checks if tweet objects are being returned correctly
+//      for (Tweet tweet : tweets) {
+//        System.out.println(tweet);
+//      }
+
       count++;
     }
 
@@ -104,7 +110,7 @@ public class Driver {
     long startTime = System.nanoTime();
 
 //    driver.readTweets();
-    double retrievalRate = driver.randomHomeTimeline(60000);
+    double retrievalRate = driver.randomHomeTimeline(500);
 
     long endTime = System.nanoTime();
     // Duration in milliseconds
