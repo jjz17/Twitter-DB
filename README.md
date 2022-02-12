@@ -38,4 +38,5 @@ https://www.vogella.com/tutorials/MySQLJava/article.html
 ENNV_VARS: url=jdbc:mysql://localhost:3306/twitter?serverTimezone\=EST5EDT;user=root;password=jiajia2002
 
 
-8978.111364493365 record inserts per second
+[comment]: <> (8978.111364493365 record inserts per second)
+9624.916985091004 record inserts per second
