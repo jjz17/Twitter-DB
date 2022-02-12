@@ -107,6 +107,7 @@ public class Driver {
     double retrievalRate = driver.randomHomeTimeline(60000);
 
     long endTime = System.nanoTime();
+    // Duration in milliseconds
     long duration = (endTime - startTime) / 1000000;
 //    System.out.println((float) 1000000 * 1000.0 / duration + " record inserts per second");
     System.out.println("Average home timelines retrieved/second: " + retrievalRate);
