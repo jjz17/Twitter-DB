@@ -20,8 +20,8 @@ public class Driver {
 
   // Read tweets from tweets.csv and posts them (inserts them into database)
   public void readTweets() {
-//    String csvFilePath = "data/tweet.csv";
-    String csvFilePath = "data/tweets_sample.csv";
+    String csvFilePath = "data/tweet.csv";
+//    String csvFilePath = "data/tweets_sample.csv";
     try {
       BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
       String lineText = null;
@@ -66,50 +66,51 @@ public class Driver {
   // Main method
   public static void main(String[] args) {
 
-//     Jedis driver
-    Jedis jedis = new Jedis();
-
-    jedis.flushAll();
-
-    // Load the followers information into redis server
-//    String csvFilePath = "data/follows_sample.csv";
-    String csvFilePath = "data/follows.csv";
-
-    try {
-      BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
-      String lineText = null;
-
-      // Skip first line of labels
-      lineReader.readLine();
-
-      while ((lineText = lineReader.readLine()) != null) {
-        String[] data = lineText.split(",");
-        int user_id = Integer.parseInt(data[0]);
-        int follows_id = Integer.parseInt(data[1]);
-
-        // Create the follows lists
-        String follows_list_key = "follows_" + follows_id;
-        // Add the following user to the list
-        jedis.rpush(follows_list_key, "" + user_id);
-
-        // Add user to set of users
-        jedis.sadd("users", "" + user_id);
-      }
-    } catch (IOException ex) {
-      System.err.println(ex.getMessage());
-    }
-
-//    Driver driver = new Driver(new RedisDatabaseAPI());
+////     Jedis driver
+//    Jedis jedis = new Jedis();
 //
-//    long startTime = System.nanoTime();
+//    jedis.flushAll();
 //
+//    // Load the followers information into redis server
+////    String csvFilePath = "data/follows_sample.csv";
+//    String csvFilePath = "data/follows.csv";
+//
+//    try {
+//      BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
+//      String lineText = null;
+//
+//      // Skip first line of labels
+//      lineReader.readLine();
+//
+//      while ((lineText = lineReader.readLine()) != null) {
+//        String[] data = lineText.split(",");
+//        int user_id = Integer.parseInt(data[0]);
+//        int follows_id = Integer.parseInt(data[1]);
+//
+//        // Create the follows lists
+//        String follows_list_key = "follows_" + follows_id;
+//        // Add the following user to the list
+//        jedis.rpush(follows_list_key, "" + user_id);
+//
+//        // Add user to set of users
+//        jedis.sadd("users", "" + user_id);
+//      }
+//    } catch (IOException ex) {
+//      System.err.println(ex.getMessage());
+//    }
+
+    Driver driver = new Driver(new RedisDatabaseAPI());
+
+    long startTime = System.nanoTime();
+
 //    driver.readTweets();
-////    double count = driver.randomHomeTimeline(10000);
-//
-//    long endTime = System.nanoTime();
-//    long duration = (endTime - startTime) / 1000000;
+    double retrievalRate = driver.randomHomeTimeline(60000);
+
+    long endTime = System.nanoTime();
+    long duration = (endTime - startTime) / 1000000;
 //    System.out.println((float) 1000000 * 1000.0 / duration + " record inserts per second");
-////    System.out.println(count);
+    System.out.println("Average home timelines retrieved/second: " + retrievalRate);
+    System.out.println(duration);
 
 
     // Driver code setup to performance test MySQL API
