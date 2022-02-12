@@ -66,52 +66,50 @@ public class Driver {
   // Main method
   public static void main(String[] args) {
 
-    // Jedis driver
-//    Jedis jedis = new Jedis();
-//
-//    jedis.flushAll();
-//
-//    jedis.set("next_tweet_id", "0");
-//
-//    // Load the followers information into redis server
+//     Jedis driver
+    Jedis jedis = new Jedis();
+
+    jedis.flushAll();
+
+    // Load the followers information into redis server
 //    String csvFilePath = "data/follows_sample.csv";
-////    String csvFilePath = "data/follows.csv";
-//
-//    try {
-//      BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
-//      String lineText = null;
-//
-//      // Skip first line of labels
-//      lineReader.readLine();
-//
-//      while ((lineText = lineReader.readLine()) != null) {
-//        String[] data = lineText.split(",");
-//        int user_id = Integer.parseInt(data[0]);
-//        int follows_id = Integer.parseInt(data[1]);
-//
-//        // Create the follows lists
-//        String follows_list_key = "follows_" + follows_id;
-//        // Add the following user to the list
-//        jedis.rpush(follows_list_key, "" + user_id);
-//
-//        // Add user to set of users
-//        jedis.sadd("users", "" + user_id);
-//      }
-//    } catch (IOException ex) {
-//      System.err.println(ex.getMessage());
-//    }
+    String csvFilePath = "data/follows.csv";
 
-    Driver driver = new Driver(new RedisDatabaseAPI());
+    try {
+      BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
+      String lineText = null;
 
-    long startTime = System.nanoTime();
+      // Skip first line of labels
+      lineReader.readLine();
 
+      while ((lineText = lineReader.readLine()) != null) {
+        String[] data = lineText.split(",");
+        int user_id = Integer.parseInt(data[0]);
+        int follows_id = Integer.parseInt(data[1]);
+
+        // Create the follows lists
+        String follows_list_key = "follows_" + follows_id;
+        // Add the following user to the list
+        jedis.rpush(follows_list_key, "" + user_id);
+
+        // Add user to set of users
+        jedis.sadd("users", "" + user_id);
+      }
+    } catch (IOException ex) {
+      System.err.println(ex.getMessage());
+    }
+
+//    Driver driver = new Driver(new RedisDatabaseAPI());
+//
+//    long startTime = System.nanoTime();
+//
 //    driver.readTweets();
-    double count = driver.randomHomeTimeline(10000);
-
-    long endTime = System.nanoTime();
-    long duration = (endTime - startTime) / 1000000;
-    System.out.println((float) 1000000 * 1000.0 / duration + " record inserts per second");
-    System.out.println(count);
+////    double count = driver.randomHomeTimeline(10000);
+//
+//    long endTime = System.nanoTime();
+//    long duration = (endTime - startTime) / 1000000;
+//    System.out.println((float) 1000000 * 1000.0 / duration + " record inserts per second");
+////    System.out.println(count);
 
 
     // Driver code setup to performance test MySQL API

@@ -12,8 +12,7 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
     this.jedis = new Jedis();
 
     // Set up
-//    this.jedis.flushAll();
-//    this.jedis.set("next_tweet_id", "0");
+    this.jedis.set("next_tweet_id", "0");
   }
 
   @Override
