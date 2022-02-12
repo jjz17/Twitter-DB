@@ -1,6 +1,7 @@
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import redis.clients.jedis.Jedis;
 
@@ -89,7 +90,12 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
 
   @Override
   public List<Integer> getUsers() {
-    return null;
+    Set<String> user_strings = this.jedis.smembers("users");
+    List<Integer> users = new ArrayList<>();
+    for (String user_string : user_strings) {
+      users.add(Integer.parseInt(user_string));
+    }
+    return users;
   }
 
   @Override

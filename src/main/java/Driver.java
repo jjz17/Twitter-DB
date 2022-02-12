@@ -91,20 +91,24 @@ public class Driver {
         String follows_list_key = "follows_" + follows_id;
         // Add the following user to the list
         jedis.rpush(follows_list_key, "" + user_id);
+
+        // Add user to set of users
+        jedis.sadd("users", "" + user_id);
       }
     } catch (IOException ex) {
       System.err.println(ex.getMessage());
     }
 
-    Driver driver = new Driver(new RedisDatabaseAPI());
-
-    long startTime = System.nanoTime();
-
-    driver.readTweets();
-
-    long endTime = System.nanoTime();
-    long duration = (endTime - startTime) / 1000000;
-    System.out.println((float) 1000000 * 1000.0 / duration + " record inserts per second");
+//    Driver driver = new Driver(new RedisDatabaseAPI());
+//
+//    long startTime = System.nanoTime();
+//
+////    driver.readTweets();
+//    driver.randomHomeTimeline(1000);
+//
+//    long endTime = System.nanoTime();
+//    long duration = (endTime - startTime) / 1000000;
+//    System.out.println((float) 1000000 * 1000.0 / duration + " record inserts per second");
 
 
     // Driver code setup to performance test MySQL API
