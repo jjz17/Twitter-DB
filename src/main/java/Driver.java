@@ -69,48 +69,53 @@ public class Driver {
     return count / (run_time_ms / 1000.0);
   }
 
+  public static void redisImportFollows() {
+    //     Jedis driver
+    Jedis jedis = new Jedis();
+
+    jedis.flushAll();
+
+    // Load the followers information into redis server
+//    String csvFilePath = "data/follows_sample.csv";
+    String csvFilePath = "data/follows.csv";
+
+    try {
+      BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
+      String lineText = null;
+
+      // Skip first line of labels
+      lineReader.readLine();
+
+      while ((lineText = lineReader.readLine()) != null) {
+        String[] data = lineText.split(",");
+        int user_id = Integer.parseInt(data[0]);
+        int follows_id = Integer.parseInt(data[1]);
+
+        // Create the follows lists
+        String follows_list_key = "follows_" + follows_id;
+        // Add the following user to the list
+        jedis.rpush(follows_list_key, "" + user_id);
+
+        // Add user to set of users
+        jedis.sadd("users", "" + user_id);
+      }
+    } catch (IOException ex) {
+      System.err.println(ex.getMessage());
+    }
+  }
+
   // Main method
   public static void main(String[] args) {
 
-////     Jedis driver
-//    Jedis jedis = new Jedis();
-//
-//    jedis.flushAll();
-//
-//    // Load the followers information into redis server
-////    String csvFilePath = "data/follows_sample.csv";
-//    String csvFilePath = "data/follows.csv";
-//
-//    try {
-//      BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
-//      String lineText = null;
-//
-//      // Skip first line of labels
-//      lineReader.readLine();
-//
-//      while ((lineText = lineReader.readLine()) != null) {
-//        String[] data = lineText.split(",");
-//        int user_id = Integer.parseInt(data[0]);
-//        int follows_id = Integer.parseInt(data[1]);
-//
-//        // Create the follows lists
-//        String follows_list_key = "follows_" + follows_id;
-//        // Add the following user to the list
-//        jedis.rpush(follows_list_key, "" + user_id);
-//
-//        // Add user to set of users
-//        jedis.sadd("users", "" + user_id);
-//      }
-//    } catch (IOException ex) {
-//      System.err.println(ex.getMessage());
-//    }
+    // Import follows information into redis
+//    redisImportFollows();
 
     Driver driver = new Driver(new RedisDatabaseAPI());
 
     long startTime = System.nanoTime();
 
 //    driver.readTweets();
-    double retrievalRate = driver.randomHomeTimeline(500);
+    double retrievalRate = driver.randomHomeTimeline(120000);
 
     long endTime = System.nanoTime();
     // Duration in milliseconds
