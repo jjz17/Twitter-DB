@@ -57,10 +57,10 @@ public class Driver {
       // Retrieve timeline (list of tweets)
       List<Tweet> tweets = api.getTimeline(random_user_id);
 
-      // Checks if tweet objects are being returned correctly
-//      for (Tweet tweet : tweets) {
-//        System.out.println(tweet);
-//      }
+//       Checks if tweet objects are being returned correctly
+      for (Tweet tweet : tweets) {
+        System.out.println(tweet);
+      }
 
       count++;
     }
@@ -108,14 +108,14 @@ public class Driver {
   public static void main(String[] args) {
 
     // Import follows information into redis
-//    redisImportFollows();
+    redisImportFollows();
 
     Driver driver = new Driver(new RedisDatabaseAPI());
 
     long startTime = System.nanoTime();
 
 //    driver.readTweets();
-    double retrievalRate = driver.randomHomeTimeline(120000);
+    double retrievalRate = driver.randomHomeTimeline(1000);
 
     long endTime = System.nanoTime();
     // Duration in milliseconds
