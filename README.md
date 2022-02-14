@@ -42,10 +42,14 @@ ENNV_VARS: url=jdbc:mysql://localhost:3306/twitter?serverTimezone\=EST5EDT;user=
 
 [comment]: <> (9624.916985091004 record inserts per second)
 
-5173.038125290984 record inserts per second
+[comment]: <> (5173.038125290984 record inserts per second)
 
-Average home timelines retrieved/second: 3530.266666666667
+[comment]: <> (Average home timelines retrieved/second: 3530.266666666667)
 
-5235.931053259891 record inserts per second
+[comment]: <> (5235.931053259891 record inserts per second)
 
-Average home timelines retrieved/second: 3357.483333333333
+[comment]: <> (Average home timelines retrieved/second: 3357.483333333333)
+
+5409.9380562092565 record inserts per second
+
+Average home timelines retrieved/second: 3274.008333333333
