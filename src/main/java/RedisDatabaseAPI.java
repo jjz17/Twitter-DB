@@ -11,7 +11,7 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
   public RedisDatabaseAPI() {
     this.jedis = new Jedis();
 
-    // Set up
+    // Set up unique tweet id counter
     this.jedis.set("next_tweet_id", "0");
   }
 
