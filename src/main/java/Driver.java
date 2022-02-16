@@ -63,9 +63,9 @@ public class Driver {
       List<Tweet> tweets = api.getTimeline(random_user_id);
 
       // Checks if tweet objects are being returned correctly by printing to console
-//      for (Tweet tweet : tweets) {
-//        System.out.println(tweet);
-//      }
+      //      for (Tweet tweet : tweets) {
+      //        System.out.println(tweet);
+      //      }
 
       count++;
     }
@@ -125,8 +125,8 @@ public class Driver {
 
     LocalDateTime start = LocalDateTime.now();
 
-        driver.readTweets();
-//    double retrieval_rate = driver.randomHomeTimeline(1000);
+    driver.readTweets();
+    //    double retrieval_rate = driver.randomHomeTimeline(1000);
 
     LocalDateTime end = LocalDateTime.now();
     driver.api.closeConnection();
@@ -138,10 +138,10 @@ public class Driver {
     System.out.println("Total runtime: " + total_runtime_seconds + " seconds");
 
     // Output for profiling rate of tweet posting
-        System.out.println("Average posts/second: " + 1000000.0/total_runtime_seconds);
+    System.out.println("Average posts/second: " + 1000000.0 / total_runtime_seconds);
 
     // Output for profiling rate of home timeline retrieval
-//    System.out.println("Average home timelines retrieved/second: " + retrieval_rate);
+    //    System.out.println("Average home timelines retrieved/second: " + retrieval_rate);
   }
 
   public static void RedisTest() {
@@ -152,14 +152,14 @@ public class Driver {
 
     long startTime = System.nanoTime();
 
-        driver.readTweets();
-//    double retrievalRate = driver.randomHomeTimeline(120000);
+    driver.readTweets();
+    //    double retrievalRate = driver.randomHomeTimeline(120000);
 
     long endTime = System.nanoTime();
     // Duration in milliseconds
     long duration = (endTime - startTime) / 1000000;
-        System.out.println((float) 1000000 * 1000.0 / duration + " record inserts per second");
-//    System.out.println("Average home timelines retrieved/second: " + retrievalRate);
+    System.out.println((float) 1000000 * 1000.0 / duration + " record inserts per second");
+    //    System.out.println("Average home timelines retrieved/second: " + retrievalRate);
     System.out.println(duration);
   }
 

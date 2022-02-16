@@ -5,6 +5,7 @@ import java.util.Set;
 
 import redis.clients.jedis.Jedis;
 
+// Implementation of Strategy 1 (OPTIONAL)
 public class RedisDatabaseAPI2 implements IDatabaseAPI {
   private Jedis jedis;
 
