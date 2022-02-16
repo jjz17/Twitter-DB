@@ -55,7 +55,12 @@ public class RedisDatabaseAPI2 implements IDatabaseAPI {
 
   @Override
   public List<Integer> getFollowees(Integer user_id) {
-    return null;
+    List<String> followees_strings = this.jedis.lrange("followees_" + user_id, 0 ,-1);
+    List<Integer> followees = new ArrayList<>();
+    for (String follower : followees_strings) {
+      followees.add(Integer.parseInt(follower));
+    }
+    return followees;
   }
 
   @Override
