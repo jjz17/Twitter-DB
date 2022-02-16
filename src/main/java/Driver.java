@@ -104,9 +104,37 @@ public class Driver {
     }
   }
 
-  // Main method
-  public static void main(String[] args) {
+  public static void MySQLTest() {
+    // Driver code setup to performance test MySQL API
+    Driver driver = new Driver(new MySQLDatabaseAPI());
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+    driver.api.authenticate(url, user, password);
 
+    // Performance test starting dialogue
+    System.out.println("Starting performance test...");
+
+    LocalDateTime start = LocalDateTime.now();
+
+//    driver.readTweets();
+    double retrieval_rate = driver.randomHomeTimeline(1000);
+
+    LocalDateTime end = LocalDateTime.now();
+    driver.api.closeConnection();
+
+    // Log start and end time of performance test
+    System.out.println("Start time: " + dtf.format(start));
+    System.out.println("End time: " + dtf.format(end));
+    double total_runtime_seconds = start.until(end, ChronoUnit.SECONDS);
+    System.out.println("Total runtime: " + total_runtime_seconds + " seconds");
+
+    // Output for profiling rate of tweet posting
+//    System.out.println("Average posts/second: " + 1000000.0/total_runtime_seconds);
+
+    // Output for profiling rate of home timeline retrieval
+    System.out.println("Average home timelines retrieved/second: " + retrieval_rate);
+  }
+
+  public static void RedisTest() {
     // Import follows information into redis
 //    redisImportFollows();
 
@@ -123,34 +151,11 @@ public class Driver {
 //    System.out.println((float) 1000000 * 1000.0 / duration + " record inserts per second");
     System.out.println("Average home timelines retrieved/second: " + retrievalRate);
     System.out.println(duration);
+  }
 
-
-    // Driver code setup to performance test MySQL API
-//    Driver driver = new Driver(new MySQLDatabaseAPI());
-//    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-//    driver.api.authenticate(url, user, password);
-//
-//    // Performance test starting dialogue
-//    System.out.println("Starting performance test...");
-//
-//    LocalDateTime start = LocalDateTime.now();
-//
-////    driver.readTweets();
-//    double retrieval_rate = driver.randomHomeTimeline(1000);
-//
-//    LocalDateTime end = LocalDateTime.now();
-//    driver.api.closeConnection();
-//
-//    // Log start and end time of performance test
-//    System.out.println("Start time: " + dtf.format(start));
-//    System.out.println("End time: " + dtf.format(end));
-//    double total_runtime_seconds = start.until(end, ChronoUnit.SECONDS);
-//    System.out.println("Total runtime: " + total_runtime_seconds + " seconds");
-//
-//    // Output for profiling rate of tweet posting
-////    System.out.println("Average posts/second: " + 1000000.0/total_runtime_seconds);
-//
-//    // Output for profiling rate of home timeline retrieval
-//    System.out.println("Average home timelines retrieved/second: " + retrieval_rate);
+  // Main method
+  public static void main(String[] args) {
+//    MySQLTest();
+    RedisTest();
   }
 }
