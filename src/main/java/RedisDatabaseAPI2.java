@@ -47,9 +47,10 @@ public class RedisDatabaseAPI2 implements IDatabaseAPI {
     int count = 0;
     // Start scanning through tweets from the most recently posted
     int tweet_id = Integer.parseInt(jedis.get("next_tweet_id")) - 1;
-    System.out.println(tweet_id);
 
-    // While we don't have 10 timeline tweets and there are most tweets to scan
+    //    System.out.println("User " + user_id + "'s timeline:");
+
+    // While we don't have 10 timeline tweets and there are more tweets to scan
     while (count < 10 && tweet_id >= 0) {
       String tweet_string = jedis.get("tweet_" + tweet_id);
 
@@ -69,7 +70,7 @@ public class RedisDatabaseAPI2 implements IDatabaseAPI {
         Tweet tweet = new Tweet(t_id, u_id, timestamp, text);
         // Add tweet to the list
         timeline_tweets.add(tweet);
-        System.out.println(tweet);
+        //        System.out.println(tweet);
 
         // Increment count
         count++;
@@ -79,6 +80,8 @@ public class RedisDatabaseAPI2 implements IDatabaseAPI {
       tweet_id--;
     }
 
+    //    System.out.println(count);
+    //    System.out.println(tweet_id);
     return timeline_tweets;
   }
 

@@ -63,9 +63,9 @@ public class Driver {
       List<Tweet> tweets = api.getTimeline(random_user_id);
 
       // Checks if tweet objects are being returned correctly by printing to console
-      for (Tweet tweet : tweets) {
-        System.out.println(tweet);
-      }
+//      for (Tweet tweet : tweets) {
+//        System.out.println(tweet);
+//      }
 
       count++;
     }
