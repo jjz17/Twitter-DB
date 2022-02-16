@@ -27,7 +27,7 @@ public class Driver {
     jedis.set("next_tweet_id", "0");
 
     String csvFilePath = "data/tweet.csv";
-//        String csvFilePath = "data/tweets_sample.csv";
+    //        String csvFilePath = "data/tweets_sample.csv";
     try {
       BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
       String lineText = null;
@@ -63,10 +63,10 @@ public class Driver {
       // Retrieve timeline (list of tweets)
       List<Tweet> tweets = api.getTimeline(random_user_id);
 
-        // Checks if tweet objects are being returned correctly
-        for (Tweet tweet : tweets) {
-          System.out.println(tweet);
-        }
+      // Checks if tweet objects are being returned correctly
+      for (Tweet tweet : tweets) {
+        System.out.println(tweet);
+      }
 
       count++;
     }
@@ -82,7 +82,7 @@ public class Driver {
     jedis.flushAll();
 
     // Load the followers information into redis server
-//        String csvFilePath = "data/follows_sample.csv";
+    //        String csvFilePath = "data/follows_sample.csv";
     String csvFilePath = "data/follows.csv";
 
     try {
@@ -167,27 +167,28 @@ public class Driver {
   // Optional method
   public static void RedisTest2() {
     // Import follows information into redis
-//    redisImportFollows();
+    //    redisImportFollows();
 
     Driver driver = new Driver(new RedisDatabaseAPI2());
 
     long startTime = System.nanoTime();
 
-//        driver.readTweets();
+    //        driver.readTweets();
     double retrievalRate = driver.randomHomeTimeline(10000);
 
     long endTime = System.nanoTime();
     // Duration in milliseconds
     long duration = (endTime - startTime) / 1000000;
-//        System.out.println((float) 1000000 * 1000.0 / duration + " record inserts per second");
+    //        System.out.println((float) 1000000 * 1000.0 / duration + " record inserts per
+    // second");
     System.out.println("Average home timelines retrieved/second: " + retrievalRate);
     System.out.println(duration);
   }
 
   // Main method
   public static void main(String[] args) {
-//    MySQLTest();
-//    RedisTest();
+    //    MySQLTest();
+    //    RedisTest();
     RedisTest2();
   }
 }

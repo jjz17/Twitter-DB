@@ -12,7 +12,7 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
     this.jedis = new Jedis();
 
     // Set up unique tweet id counter
-    this.jedis.set("next_tweet_id", "0");
+    //    this.jedis.set("next_tweet_id", "0");
   }
 
   @Override
@@ -38,7 +38,7 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
     this.jedis.set(tweet_name, tweet_info);
 
     // Add tweet id to every follower's timeline bucket
-    List<String> followers = this.jedis.lrange("follows_" + user_id, 0 , -1);
+    List<String> followers = this.jedis.lrange("follows_" + user_id, 0, -1);
     for (String follower : followers) {
       String timeline = "timeline_" + follower;
       // Add the tweet id to the front of the timeline
@@ -69,7 +69,7 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
 
   @Override
   public List<Integer> getFollowers(Integer user_id) {
-    List<String> followers_strings = this.jedis.lrange("follows_" + user_id, 0 ,-1);
+    List<String> followers_strings = this.jedis.lrange("follows_" + user_id, 0, -1);
     List<Integer> followers = new ArrayList<>();
     for (String follower : followers_strings) {
       followers.add(Integer.parseInt(follower));
@@ -79,7 +79,7 @@ public class RedisDatabaseAPI implements IDatabaseAPI {
 
   @Override
   public List<Integer> getFollowees(Integer user_id) {
-    List<String> followees_strings = this.jedis.lrange("followees_" + user_id, 0 ,-1);
+    List<String> followees_strings = this.jedis.lrange("followees_" + user_id, 0, -1);
     List<Integer> followees = new ArrayList<>();
     for (String follower : followees_strings) {
       followees.add(Integer.parseInt(follower));

@@ -10,9 +10,6 @@ public class RedisDatabaseAPI2 implements IDatabaseAPI {
 
   public RedisDatabaseAPI2() {
     this.jedis = new Jedis();
-
-    // Set up unique tweet id counter
-//    this.jedis.set("next_tweet_id", "0");
   }
 
   @Override
@@ -42,7 +39,7 @@ public class RedisDatabaseAPI2 implements IDatabaseAPI {
   public List<Tweet> getTimeline(Integer user_id) {
     // Get list of followees
     List<Integer> followees = this.getFollowees(user_id);
-//    System.out.println(followees);
+    //    System.out.println(followees);
 
     List<Tweet> timeline_tweets = new ArrayList<>();
 
@@ -87,7 +84,7 @@ public class RedisDatabaseAPI2 implements IDatabaseAPI {
 
   @Override
   public List<Integer> getFollowers(Integer user_id) {
-    List<String> followers_strings = this.jedis.lrange("follows_" + user_id, 0 ,-1);
+    List<String> followers_strings = this.jedis.lrange("follows_" + user_id, 0, -1);
     List<Integer> followers = new ArrayList<>();
     for (String follower : followers_strings) {
       followers.add(Integer.parseInt(follower));
@@ -97,7 +94,7 @@ public class RedisDatabaseAPI2 implements IDatabaseAPI {
 
   @Override
   public List<Integer> getFollowees(Integer user_id) {
-    List<String> followees_strings = this.jedis.lrange("followees_" + user_id, 0 ,-1);
+    List<String> followees_strings = this.jedis.lrange("followees_" + user_id, 0, -1);
     List<Integer> followees = new ArrayList<>();
     for (String follower : followees_strings) {
       followees.add(Integer.parseInt(follower));
@@ -116,12 +113,8 @@ public class RedisDatabaseAPI2 implements IDatabaseAPI {
   }
 
   @Override
-  public void authenticate(String url, String user, String password) {
-
-  }
+  public void authenticate(String url, String user, String password) {}
 
   @Override
-  public void closeConnection() {
-
-  }
+  public void closeConnection() {}
 }
