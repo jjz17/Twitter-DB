@@ -96,7 +96,10 @@ public class Driver {
         // Add the following user to the list
         jedis.rpush(follows_list_key, "" + user_id);
 
-        // Create
+        // Create the followees lists
+        String followees_list_key = "followees_" + user_id;
+        // Add the followed user to the list
+        jedis.rpush(followees_list_key, "" + follows_id);
 
         // Add user to set of users
         jedis.sadd("users", "" + user_id);
