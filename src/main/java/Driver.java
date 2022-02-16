@@ -96,6 +96,8 @@ public class Driver {
         // Add the following user to the list
         jedis.rpush(follows_list_key, "" + user_id);
 
+        // Create
+
         // Add user to set of users
         jedis.sadd("users", "" + user_id);
       }
