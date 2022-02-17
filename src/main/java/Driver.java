@@ -164,11 +164,11 @@ public class Driver {
   }
 
   // Optional method
-  public static void RedisTest2() {
+  public static void RedisTestInefficient() {
     // Import follows information into redis
     //    redisImportFollows();
 
-    Driver driver = new Driver(new RedisDatabaseAPI2());
+    Driver driver = new Driver(new RedisDatabaseAPIInefficient());
 
     long startTime = System.nanoTime();
 
@@ -185,11 +185,11 @@ public class Driver {
   }
 
   // Optional method v.2
-  public static void RedisTest3() {
+  public static void RedisTest2() {
     // Import follows information into redis
     //    redisImportFollows();
 
-    Driver driver = new Driver(new RedisDatabaseAPI3());
+    Driver driver = new Driver(new RedisDatabaseAPI2());
 
     long startTime = System.nanoTime();
 
@@ -208,7 +208,7 @@ public class Driver {
   public static void main(String[] args) {
     //    MySQLTest();
     //    RedisTest();
-    //    RedisTest2();
-    RedisTest3();
+    //    RedisTestInefficient();
+    RedisTest2();
   }
 }

@@ -1,11 +1,12 @@
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
 import redis.clients.jedis.Jedis;
 
-// Implementation of Strategy 1 (OPTIONAL)
+// Efficient Implementation of Strategy 1 (OPTIONAL)
 public class RedisDatabaseAPI2 implements IDatabaseAPI {
   private Jedis jedis;
 
@@ -34,6 +35,10 @@ public class RedisDatabaseAPI2 implements IDatabaseAPI {
 
     // Put the tweet key, value pair into Redis server
     this.jedis.set(tweet_name, tweet_info);
+
+    String user_tweets = "tweets_" + user_id;
+    // Add the tweet id to the front of the user's tweets
+    this.jedis.lpush(user_tweets, tweet_id);
   }
 
   @Override
@@ -44,26 +49,16 @@ public class RedisDatabaseAPI2 implements IDatabaseAPI {
 
     List<Tweet> timeline_tweets = new ArrayList<>();
 
-    // Counter for number of tweets retrieved
-    int count = 0;
-    // Start scanning through tweets from the most recently posted
-    int tweet_id = Integer.parseInt(jedis.get("next_tweet_id")) - 1;
+    for (Integer followee : followees) {
+      List<String> tweetIDs = this.jedis.lrange("tweets_" + followee, 0, 9);
+      for (String tweetID : tweetIDs) {
+        String tweet_string = jedis.get("tweet_" + tweetID);
 
-    //    System.out.println("User " + user_id + "'s timeline:");
+        // Parse tweet string to extract attributes, split by |
+        String[] args = tweet_string.split("\\|");
 
-    // While we don't have 10 timeline tweets and there are more tweets to scan
-    while (count < 10 && tweet_id >= 0) {
-      String tweet_string = jedis.get("tweet_" + tweet_id);
-
-      // Parse tweet string to extract attributes, split by |
-      String[] args = tweet_string.split("\\|");
-
-      // Check the user id of the poster to see if it's a followee
-      int u_id = Integer.parseInt(args[1]);
-
-      if (followees.contains(u_id)) {
-        // Extract other attributes
         int t_id = Integer.parseInt(args[0]);
+        int u_id = Integer.parseInt(args[1]);
         Timestamp timestamp = new Timestamp(Long.parseLong(args[2]));
         String text = args[3];
 
@@ -71,19 +66,14 @@ public class RedisDatabaseAPI2 implements IDatabaseAPI {
         Tweet tweet = new Tweet(t_id, u_id, timestamp, text);
         // Add tweet to the list
         timeline_tweets.add(tweet);
-        //        System.out.println(tweet);
-
-        // Increment count
-        count++;
       }
-
-      // Decrement tweet id
-      tweet_id--;
     }
 
-    //    System.out.println(count);
-    //    System.out.println(tweet_id);
-    return timeline_tweets;
+    // Sort all tweets in descending order based on timestamp (to get most recent)
+    timeline_tweets.sort(Comparator.comparing(Tweet::getTimestamp).reversed());
+
+    // Return the first 10 tweets
+    return timeline_tweets.subList(0, 10);
   }
 
   @Override
