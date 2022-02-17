@@ -49,7 +49,7 @@ public class RedisDatabaseAPI3 implements IDatabaseAPI {
     List<Tweet> timeline_tweets = new ArrayList<>();
 
     for (Integer followee : followees) {
-      List<String> tweetIDs = this.jedis.lrange("tweets_" + followee, 0 , 9);
+      List<String> tweetIDs = this.jedis.lrange("tweets_" + followee, 0, 9);
       for (String tweetID : tweetIDs) {
         String tweet_string = jedis.get("tweet_" + tweetID);
 

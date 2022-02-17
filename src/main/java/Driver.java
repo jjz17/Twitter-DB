@@ -63,9 +63,9 @@ public class Driver {
       List<Tweet> tweets = api.getTimeline(random_user_id);
 
       // Checks if tweet objects are being returned correctly by printing to console
-//      for (Tweet tweet : tweets) {
-//        System.out.println(tweet);
-//      }
+      //      for (Tweet tweet : tweets) {
+      //        System.out.println(tweet);
+      //      }
 
       count++;
     }
@@ -187,19 +187,19 @@ public class Driver {
   // Optional method v.2
   public static void RedisTest3() {
     // Import follows information into redis
-//    redisImportFollows();
+    //    redisImportFollows();
 
     Driver driver = new Driver(new RedisDatabaseAPI3());
 
     long startTime = System.nanoTime();
 
-//    driver.readTweets();
+    //    driver.readTweets();
     double retrievalRate = driver.randomHomeTimeline(10000);
 
     long endTime = System.nanoTime();
     // Duration in milliseconds
     long duration = (endTime - startTime) / 1000000;
-//    System.out.println((float) 1000000 * 1000.0 / duration + " record inserts per second");
+    //    System.out.println((float) 1000000 * 1000.0 / duration + " record inserts per second");
     System.out.println("Average home timelines retrieved/second: " + retrievalRate);
     System.out.println(duration);
   }
@@ -208,7 +208,7 @@ public class Driver {
   public static void main(String[] args) {
     //    MySQLTest();
     //    RedisTest();
-//    RedisTest2();
+    //    RedisTest2();
     RedisTest3();
   }
 }
