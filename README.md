@@ -65,3 +65,5 @@ Optional Strategy 12460.90391396992 record inserts per second
 Average home timelines retrieved/second: 0.9
 
 Optional Strategy v.2 9571.942721494755 record inserts per second
+
+Average home timelines retrieved/second: 1010.1
